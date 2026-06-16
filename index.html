@@ -1,1 +1,3864 @@
-PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIiBkYXRhLXRoZW1lPSJsaWdodCI+CjxoZWFkPgo8bWV0YSBjaGFyc2V0PSJVVEYtOCIvPgo8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCIvPgo8bWV0YSBodHRwLWVxdWl2PSJDb250ZW50LVNlY3VyaXR5LVBvbGljeSIgY29udGVudD0iZGVmYXVsdC1zcmMgJ3NlbGYnOyBzY3JpcHQtc3JjICd1bnNhZmUtaW5saW5lJzsgc3R5bGUtc3JjICdzZWxmJyAndW5zYWZlLWlubGluZScgaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbTsgZm9udC1zcmMgaHR0cHM6Ly9mb250cy5nc3RhdGljLmNvbTsgY29ubmVjdC1zcmMgaHR0cHM6Ly9vYXV0aC5pZC5qdW1wY2xvdWQuY29tIGh0dHBzOi8vb2F1dGguaWQuZXUuanVtcGNsb3VkLmNvbSBodHRwczovL29hdXRoLmlkLmluLmp1bXBjbG91ZC5jb207IGltZy1zcmMgJ3NlbGYnIGRhdGE6IGh0dHBzOi8vanVtcGNsb3VkLmNvbTsgZnJhbWUtYW5jZXN0b3JzICdub25lJzsgZm9ybS1hY3Rpb24gJ25vbmUnOyB3b3JrZXItc3JjIGJsb2I6Ii8+Cjx0aXRsZT5KdW1wQ2xvdWQgUG93ZXIgT0lEQyBWZXJpZmllcjwvdGl0bGU+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://oauth.id.jumpcloud.com https://oauth.id.eu.jumpcloud.com https://oauth.id.in.jumpcloud.com; img-src 'self' data: https://jumpcloud.com; frame-ancestors 'none'; form-action 'none'; worker-src blob:"/>
+<title>JumpCloud Power OIDC Verifier</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23001E36'/%3E%3Cstop offset='100%25' stop-color='%23002B49'/%3E%3C/linearGradient%3E%3ClinearGradient id='a' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%2341C8C3'/%3E%3Cstop offset='100%25' stop-color='%2314A19C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M32 11 L47 18.5 V31.5 C47 40.5 32 49 32 49 S17 40.5 17 31.5 V18.5 Z' fill='url(%23a)'/%3E%3Cpath d='M32 11 L47 18.5 V31.5 C47 40.5 32 49 32 49 S17 40.5 17 31.5 V18.5 Z' fill='none' stroke='%23fff' stroke-opacity='.22' stroke-width='1.2'/%3E%3Ccircle cx='24' cy='30' r='2.8' fill='%23001E36'/%3E%3Ccircle cx='32' cy='30' r='2.8' fill='%23001E36' opacity='.75'/%3E%3Ccircle cx='40' cy='30' r='2.8' fill='%23001E36' opacity='.5'/%3E%3Ccircle cx='43.5' cy='43.5' r='8.5' fill='%23001E36' stroke='%2341C8C3' stroke-width='2.2'/%3E%3Cpath d='M49 49 L56 56' stroke='%2341C8C3' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23001E36'/%3E%3Cstop offset='100%25' stop-color='%23002B49'/%3E%3C/linearGradient%3E%3ClinearGradient id='a' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%2341C8C3'/%3E%3Cstop offset='100%25' stop-color='%2314A19C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M32 11 L47 18.5 V31.5 C47 40.5 32 49 32 49 S17 40.5 17 31.5 V18.5 Z' fill='url(%23a)'/%3E%3Cpath d='M32 11 L47 18.5 V31.5 C47 40.5 32 49 32 49 S17 40.5 17 31.5 V18.5 Z' fill='none' stroke='%23fff' stroke-opacity='.22' stroke-width='1.2'/%3E%3Ccircle cx='24' cy='30' r='2.8' fill='%23001E36'/%3E%3Ccircle cx='32' cy='30' r='2.8' fill='%23001E36' opacity='.75'/%3E%3Ccircle cx='40' cy='30' r='2.8' fill='%23001E36' opacity='.5'/%3E%3Ccircle cx='43.5' cy='43.5' r='8.5' fill='%23001E36' stroke='%2341C8C3' stroke-width='2.2'/%3E%3Cpath d='M49 49 L56 56' stroke='%2341C8C3' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E"/>
+<meta name="theme-color" content="#001E36"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ════════════════════════════════════════════════════════════
+   JUMPCLOUD BRAND DESIGN SYSTEM
+   Colors: Brand Guide p.24-27
+   Type:   Gibson → Nunito Sans (Google Fonts sub) → Arial
+   Space:  4-point base scale
+════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Brand palette (exact) ─────────────────────────────── */
+  --ocean:        #002B49;   /* Ocean Blue — primary dark    */
+  --ocean-85:     #1A3D57;   /* Ocean Blue 85%               */
+  --ocean-65:     #5C7A8E;   /* Ocean Blue 65%               */
+  --ocean-40:     #99B3C0;   /* Ocean Blue 40%               */
+  --ocean-15:     #D9E4EA;   /* Ocean Blue 15%               */
+  --ocean-08:     #ECF1F4;   /* Ocean Blue 8%                */
+  --sea:          #41C8C3;   /* Sea Green — primary accent   */
+  --pool:         #14A19C;   /* Pool Turquoise — CTA active  */
+  --pool-dark:    #0D6B68;   /* Pool Turquoise deep          */
+  --sea-mist:     #F0FCFD;   /* Blue Mist — info bg          */
+  --sea-pale:     #D8F5F4;   /* Sea Green 20%                */
+  --yellow:       #FFA800;   /* Sun Yellow — warnings        */
+  --yellow-pale:  #FFF5DD;   /* Sun Yellow 12%               */
+  --yellow-mid:   #FFE8A3;   /* Sun Yellow 35%               */
+  --brick:        #B54824;   /* Brick Red — errors only      */
+  --brick-pale:   #FCEEE9;   /* Brick Red 8%                 */
+  --brick-mid:    #F5C4B3;   /* Brick Red 25%                */
+  --jade:         #1A9B6B;   /* Success green                */
+  --jade-pale:    #E8F7F2;   /* Success green pale           */
+
+  /* ── Typography ───────────────────────────────────────── */
+  --font-sans:    'Nunito Sans', Arial, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  /* ── Spacing scale (4pt base) ─────────────────────────── */
+  --s1: 4px;   --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s5: 20px;  --s6: 24px;  --s8: 32px;  --s10: 40px;
+
+  /* ── Radii ─────────────────────────────────────────────── */
+  --r-xs: 3px;  --r-sm: 6px;  --r-md: 8px;
+  --r-lg: 12px; --r-xl: 16px; --r-pill: 999px;
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --topbar-h:  56px;
+  --sidebar-w:  320px;
+  --json-w:    304px;
+
+  /* ── Light mode surfaces ───────────────────────────────── */
+  --bg:           #F7F7FB;   /* White Smoke — brand bg       */
+  --surface:      #FFFFFF;
+  --surface-2:    #F0F4F7;
+  --surface-3:    #E8EDF1;
+  --border:       #D4DCE2;
+  --border-mid:   #B8C5CE;
+  --border-strong:#8FA3AF;
+
+  /* ── Light mode text ───────────────────────────────────── */
+  --text-1:  #002B49;   /* Ocean Blue — primary             */
+  --text-2:  #1A3D57;   /* Ocean Blue 85% — secondary       */
+  --text-3:  #5C7A8E;   /* Ocean Blue 65% — muted           */
+  --text-4:  #99B3C0;   /* Ocean Blue 40% — faint           */
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(0,43,73,0.06);
+  --shadow-sm: 0 2px 6px rgba(0,43,73,0.08), 0 1px 2px rgba(0,43,73,0.05);
+  --shadow-md: 0 4px 16px rgba(0,43,73,0.10), 0 1px 4px rgba(0,43,73,0.06);
+  --shadow-lg: 0 12px 40px rgba(0,43,73,0.13), 0 4px 12px rgba(0,43,73,0.07);
+  --shadow-dialog: 0 24px 64px rgba(0,43,73,0.22), 0 8px 20px rgba(0,43,73,0.12);
+
+  /* ── Topbar & JSON pane ─────────────────────────────────── */
+  --topbar-bg:  #001E36;
+  --json-bg:    #00111F;
+  --json-text:  rgba(140,215,210,0.92);
+  --json-dim:   rgba(255,255,255,0.06);
+}
+
+[data-theme="dark"] {
+  --bg:          #0A1219;
+  --surface:     #0F1A24;
+  --surface-2:   #152030;
+  --surface-3:   #1B2A3A;
+  --border:      rgba(255,255,255,0.08);
+  --border-mid:  rgba(255,255,255,0.13);
+  --border-strong: rgba(255,255,255,0.22);
+
+  --text-1:  #E2EEF5;
+  --text-2:  #8AAFC8;
+  --text-3:  #4A6D84;
+  --text-4:  #2E4D63;
+
+  --ocean-08: #152030;
+  --ocean-15: #1B2A3A;
+  --sea-mist: rgba(65,200,195,0.08);
+  --sea-pale: rgba(65,200,195,0.16);
+  --yellow-pale: rgba(255,168,0,0.10);
+  --yellow-mid:  rgba(255,168,0,0.22);
+  --brick-pale:  rgba(181,72,36,0.12);
+  --brick-mid:   rgba(181,72,36,0.25);
+  --jade-pale:   rgba(26,155,107,0.12);
+
+  --shadow-xs: 0 1px 3px rgba(0,0,0,0.30);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.35);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.40);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.55);
+  --shadow-dialog: 0 24px 64px rgba(0,0,0,0.70);
+
+  --topbar-bg: #060D14;
+  --json-bg:   #040A10;
+  --json-text: rgba(120,205,200,0.92);
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text-1);
+  font-size: 13px;
+  line-height: 1.5;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 180ms, color 180ms;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: var(--r-pill); }
+
+/* ════════════════════════════════════════════════════════════
+   TOPBAR
+════════════════════════════════════════════════════════════ */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--topbar-h);
+  background: var(--topbar-bg);
+  display: flex; align-items: center;
+  padding: 0 var(--s5);
+  gap: var(--s3);
+  z-index: 300;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 4px 24px rgba(0,0,0,0.35);
+}
+
+.topbar-brand { display: flex; align-items: center; gap: var(--s3); flex-shrink: 0; }
+
+.topbar-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+  opacity: 0.95;
+  transition: opacity 140ms;
+}
+.topbar-logo-link:hover { opacity: 1; }
+
+.topbar-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.topbar-titles { display: flex; flex-direction: column; line-height: 1.15; }
+.topbar-name {
+  font-size: 13.5px; font-weight: 800; color: #fff;
+  letter-spacing: -0.01em;
+}
+.topbar-sub {
+  font-size: 9px; font-weight: 700;
+  color: rgba(255,255,255,0.30);
+  letter-spacing: 0.10em; text-transform: uppercase;
+}
+
+.topbar-divider {
+  width: 1px; height: 20px;
+  background: rgba(255,255,255,0.10);
+  flex-shrink: 0;
+}
+
+.topbar-pill {
+  font-size: 9.5px; font-weight: 800;
+  color: var(--sea); letter-spacing: 0.06em;
+  background: rgba(65,200,195,0.12);
+  border: 1px solid rgba(65,200,195,0.22);
+  border-radius: var(--r-pill);
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+.topbar-spacer { flex: 1; }
+
+.topbar-status {
+  display: flex; align-items: center; gap: var(--s2);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--r-pill);
+  padding: 4px 12px 4px 8px;
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ocean-40);
+  flex-shrink: 0;
+  transition: background 300ms;
+}
+.status-dot.running  { background: var(--sea);  animation: pulse 1.2s ease-in-out infinite; }
+.status-dot.success  { background: var(--jade); }
+.status-dot.error    { background: var(--brick); }
+.status-label {
+  font-size: 10.5px; font-weight: 700;
+  color: rgba(255,255,255,0.40);
+  letter-spacing: 0.02em;
+}
+
+.theme-btn {
+  display: flex; align-items: center; gap: var(--s2);
+  font-family: var(--font-sans);
+  font-size: 10.5px; font-weight: 700;
+  color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: var(--r-pill);
+  padding: 4px 12px 4px 8px;
+  cursor: pointer;
+  transition: background 140ms, color 140ms;
+  white-space: nowrap; flex-shrink: 0;
+}
+.theme-btn:hover { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.80); }
+.theme-btn-icon { font-size: 13px; line-height: 1; }
+
+/* ════════════════════════════════════════════════════════════
+   APP LAYOUT
+════════════════════════════════════════════════════════════ */
+.app {
+  display: flex;
+  height: 100vh;
+  padding-top: var(--topbar-h);
+}
+
+/* ════════════════════════════════════════════════════════════
+   SIDEBAR
+════════════════════════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: background 180ms, border-color 180ms;
+  box-shadow: 2px 0 12px rgba(0,43,73,0.04);
+}
+
+/* Tabs */
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--surface);
+  padding: 0 var(--s4);
+  gap: var(--s1);
+}
+.sidebar-tab {
+  flex: 1;
+  padding: var(--s3) 0 11px;
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 800;
+  color: var(--text-3);
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 140ms, border-color 140ms;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.sidebar-tab.active  { color: var(--pool); border-bottom-color: var(--pool); }
+.sidebar-tab:hover:not(.active) { color: var(--text-2); }
+
+.tab-panel { display: none; flex: 1; flex-direction: column; overflow: hidden; min-height: 0; }
+.tab-panel.active { display: flex; }
+
+/* Body scroll — min-height:0 lets flex child shrink so overflow-y works */
+.sidebar-body {
+  flex: 1; min-height: 0; overflow-y: auto;
+  padding: var(--s3) var(--s4);
+  display: flex; flex-direction: column; gap: var(--s3);
+  -webkit-overflow-scrolling: touch;
+}
+
+.sidebar-intro {
+  font-size: 11px; color: var(--text-3);
+  line-height: 1.45;
+  padding: var(--s2) var(--s3);
+  background: var(--ocean-08);
+  border-radius: var(--r-sm);
+  border-left: 3px solid var(--sea);
+}
+
+.sb-section {
+  display: flex; flex-direction: column; gap: var(--s2);
+}
+.sb-section-head {
+  font-size: 9px; font-weight: 800;
+  color: var(--text-4);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  padding-bottom: 2px;
+}
+
+.sb-advanced-toggle {
+  width: 100%;
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-sans);
+  font-size: 10.5px; font-weight: 700;
+  color: var(--text-3);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  text-align: left;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 120ms, border-color 120ms, color 120ms;
+}
+.sb-advanced-toggle:hover { border-color: var(--border-mid); color: var(--text-2); }
+.sb-advanced-toggle.open { color: var(--pool); border-color: rgba(20,161,156,0.35); background: var(--sea-mist); }
+.sb-advanced-toggle svg { width: 10px; height: 10px; transition: transform 180ms; flex-shrink: 0; }
+.sb-advanced-toggle.open svg { transform: rotate(180deg); }
+
+.sb-advanced {
+  display: none;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s3);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.sb-advanced.open { display: flex; }
+
+.region-chips {
+  display: flex; gap: var(--s2);
+}
+.region-chip {
+  flex: 1;
+  height: 34px;
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 800;
+  color: var(--text-2);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  letter-spacing: 0.04em;
+}
+.region-chip:hover { border-color: var(--border-mid); color: var(--text-1); }
+.region-chip.active {
+  color: #fff;
+  background: var(--pool);
+  border-color: var(--pool);
+  box-shadow: 0 1px 4px rgba(20,161,156,0.28);
+}
+
+.slash-toggle {
+  display: flex; align-items: center; gap: var(--s2);
+  font-size: 10.5px; color: var(--text-3);
+  cursor: pointer;
+  user-select: none;
+}
+.slash-toggle input { accent-color: var(--pool); width: auto; height: auto; }
+
+.urls-tab-body {
+  flex: 1; min-height: 0; overflow-y: auto;
+  padding: var(--s4);
+}
+
+/* Section heading inside sidebar */
+.field-section-label {
+  font-size: 9px; font-weight: 800;
+  color: var(--text-4);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+
+/* Field group */
+.field-group { display: flex; flex-direction: column; gap: var(--s2); }
+.field-label {
+  display: flex; align-items: center; gap: var(--s2);
+  font-size: 11px; font-weight: 700;
+  color: var(--text-2);
+  letter-spacing: 0.01em;
+}
+
+/* Inputs */
+input[type=text], input[type=password], textarea, select {
+  width: 100%; height: 36px;
+  padding: 0 var(--s3);
+  font-family: var(--font-sans);
+  font-size: 12px; color: var(--text-1);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms, background 150ms;
+  appearance: none;
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  background: var(--surface);
+  border-color: var(--pool);
+  box-shadow: 0 0 0 3px rgba(20,161,156,0.14);
+}
+input::placeholder { color: var(--text-4); }
+
+.field-hint {
+  font-size: 10.5px; color: var(--text-4);
+  line-height: 1.5;
+}
+.field-hint code {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  background: var(--ocean-08);
+  color: var(--text-2);
+  padding: 1px 5px;
+  border-radius: var(--r-xs);
+}
+.field-hint strong { color: var(--yellow); }
+
+/* ── Issuer combobox ─────────────────────────────────────── */
+.issuer-combo { position: relative; }
+.issuer-input {
+  width: 100%; height: 36px;
+  padding: 0 34px 0 var(--s3);
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-1);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.issuer-input:focus {
+  background: var(--surface);
+  border-color: var(--pool);
+  box-shadow: 0 0 0 3px rgba(20,161,156,0.14);
+}
+.issuer-input::placeholder { color: var(--text-4); }
+.issuer-chevron-btn {
+  position: absolute; right: 0; top: 0;
+  width: 34px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none;
+  cursor: pointer; color: var(--text-4);
+  transition: color 140ms;
+}
+.issuer-chevron-btn:hover { color: var(--text-3); }
+.issuer-chevron-btn svg { width: 11px; height: 11px; transition: transform 200ms ease; }
+.issuer-chevron-btn.open svg { transform: rotate(180deg); }
+
+.issuer-dropdown {
+  display: none;
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  z-index: 400;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  animation: dropIn 140ms ease both;
+}
+.issuer-dropdown.open { display: block; }
+.issuer-group-label {
+  font-size: 8.5px; font-weight: 800;
+  color: var(--text-4);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: var(--s2) var(--s3) var(--s1);
+}
+.issuer-divider { height: 1px; background: var(--border); margin: var(--s1) 0; }
+.issuer-option {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s2) var(--s3);
+  cursor: pointer;
+  transition: background 110ms;
+}
+.issuer-option:hover   { background: var(--ocean-08); }
+.issuer-option.selected { background: var(--sea-mist); }
+
+.issuer-badge {
+  font-size: 8.5px; font-weight: 800; color: #fff;
+  background: var(--pool);
+  padding: 2px 6px; border-radius: var(--r-xs);
+  letter-spacing: 0.06em; flex-shrink: 0; min-width: 28px; text-align: center;
+}
+.issuer-badge.eu  { background: var(--ocean-85); }
+.issuer-badge.in  { background: var(--yellow); color: var(--ocean); }
+.issuer-badge.var { background: var(--ocean-40); }
+
+.issuer-opt-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.issuer-opt-name {
+  font-size: 11px; font-weight: 700;
+  color: var(--text-1); line-height: 1.2;
+}
+.issuer-opt-url {
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--text-4);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.issuer-option.selected .issuer-opt-name { color: var(--pool); }
+.issuer-option.selected .issuer-opt-url  { color: var(--pool); opacity: 0.7; }
+
+/* ── Auth type — segmented control ──────────────────────── */
+.auth-seg {
+  display: flex;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  padding: 3px;
+  gap: 3px;
+}
+.auth-seg-item { position: relative; flex: 1; }
+.auth-seg-item input[type=radio] {
+  position: absolute; opacity: 0; width: 0; height: 0;
+}
+.auth-seg-label {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center;
+  padding: var(--s2) var(--s1);
+  border-radius: var(--r-xs);
+  cursor: pointer;
+  transition: background 140ms, color 140ms;
+  height: 36px;
+}
+.auth-seg-item input:checked + .auth-seg-label {
+  background: var(--pool);
+  box-shadow: 0 1px 4px rgba(20,161,156,0.30);
+}
+.auth-seg-label:hover {
+  background: var(--ocean-08);
+}
+.auth-seg-item input:checked + .auth-seg-label:hover {
+  background: var(--pool);
+}
+.auth-seg-name {
+  font-size: 11px; font-weight: 800;
+  color: var(--text-2);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.auth-seg-item input:checked + .auth-seg-label .auth-seg-name { color: #fff; }
+
+/* ── Scope dropdown ─────────────────────────────────────── */
+.scope-wrap { position: relative; }
+.scope-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 36px; padding: 0 var(--s3);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 12px; color: var(--text-1);
+  transition: border-color 150ms;
+}
+.scope-trigger:hover, .scope-trigger.open { border-color: var(--pool); }
+.scope-chevron { width: 11px; height: 11px; color: var(--text-4); transition: transform 200ms; }
+.scope-chevron.flipped { transform: rotate(180deg); }
+
+.scope-dropdown {
+  display: none;
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  z-index: 400;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  animation: dropIn 140ms ease both;
+}
+.scope-dropdown.open { display: block; }
+
+.scope-item {
+  display: flex; align-items: flex-start; gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  cursor: pointer;
+  transition: background 110ms;
+}
+.scope-item:hover { background: var(--ocean-08); }
+.scope-item.locked { opacity: 0.50; cursor: default; }
+.scope-item input[type=checkbox] {
+  width: auto; height: auto;
+  accent-color: var(--pool);
+  margin-top: 2px; flex-shrink: 0;
+  cursor: pointer;
+}
+.scope-item-info { display: flex; flex-direction: column; gap: 1px; }
+.scope-item-name { font-size: 11.5px; font-weight: 700; color: var(--text-1); }
+.scope-item-desc { font-size: 10px; color: var(--text-3); }
+
+/* ── JumpCloud Notes panel ──────────────────────────────── */
+.notes-panel {
+  background: var(--sea-mist);
+  border: 1px solid var(--sea-pale);
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+}
+.notes-panel-header {
+  display: flex; align-items: center; gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  background: rgba(20,161,156,0.08);
+  border-bottom: 1px solid var(--sea-pale);
+}
+.notes-panel-title {
+  font-size: 9px; font-weight: 800;
+  color: var(--pool-dark);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  flex: 1;
+}
+.notes-panel-badge {
+  font-size: 8px; font-weight: 800;
+  color: var(--pool-dark);
+  background: var(--sea-pale);
+  border: 1px solid rgba(20,161,156,0.30);
+  border-radius: var(--r-pill);
+  padding: 1px 7px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.notes-panel-body {
+  padding: var(--s3);
+  display: flex; flex-direction: column; gap: var(--s3);
+}
+.notes-item {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.notes-item-key {
+  font-size: 10px; font-weight: 800;
+  color: var(--pool-dark);
+  letter-spacing: 0.01em;
+}
+.notes-item-val {
+  font-size: 10.5px; color: var(--text-2);
+  line-height: 1.5;
+}
+.notes-item-val code {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: rgba(20,161,156,0.12);
+  color: var(--pool-dark);
+  padding: 1px 4px;
+  border-radius: var(--r-xs);
+}
+.notes-divider { height: 1px; background: var(--sea-pale); }
+
+.rp-endpoint-list {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.rp-region-chip {
+  display: inline-block;
+  font-size: 10px; font-weight: 800;
+  color: var(--pool-dark);
+  background: rgba(20,161,156,0.12);
+  border: 1px solid var(--sea-pale);
+  border-radius: var(--r-pill);
+  padding: 2px 10px;
+  margin-bottom: var(--s2);
+  letter-spacing: 0.02em;
+}
+.rp-hero {
+  padding: var(--s3);
+  background: rgba(255,255,255,0.60);
+  border: 1.5px solid rgba(20,161,156,0.35);
+  border-radius: var(--r-md);
+}
+[data-theme="dark"] .rp-hero { background: rgba(0,0,0,0.22); }
+.rp-hero-top {
+  display: flex; align-items: center; gap: var(--s2);
+  margin-bottom: 4px;
+}
+.rp-hero-label {
+  font-size: 11px; font-weight: 800;
+  color: var(--pool-dark);
+}
+.rp-hero-tag {
+  font-size: 8px; font-weight: 800;
+  color: #fff;
+  background: var(--pool);
+  border-radius: var(--r-pill);
+  padding: 1px 7px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rp-hero-desc {
+  font-size: 10.5px; color: var(--text-3);
+  line-height: 1.45;
+  margin-bottom: var(--s2);
+}
+.rp-hero-url-row {
+  display: flex; align-items: stretch; gap: var(--s2);
+}
+.rp-hero-url {
+  flex: 1; min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 9.5px; color: var(--text-2);
+  line-height: 1.45; word-break: break-all;
+  background: rgba(20,161,156,0.08);
+  padding: 6px 8px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--sea-pale);
+}
+.rp-copy-primary {
+  align-self: stretch;
+  padding: 0 12px;
+  font-size: 10px;
+  border-radius: var(--r-sm);
+}
+.rp-actions {
+  display: flex; gap: var(--s2);
+  margin-top: var(--s2);
+}
+.rp-action-link {
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 700;
+  color: var(--pool-dark);
+  background: none; border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rp-action-link:hover { color: var(--pool); }
+.rp-advanced {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--sea-pale);
+}
+.rp-advanced.open { display: flex; }
+.rp-advanced-toggle {
+  width: 100%;
+  margin-top: var(--s2);
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 700;
+  color: var(--text-2);
+  background: rgba(255,255,255,0.45);
+  border: 1px solid var(--sea-pale);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  text-align: left;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 120ms, border-color 120ms;
+}
+.rp-advanced-toggle:hover { background: rgba(255,255,255,0.75); border-color: rgba(20,161,156,0.35); }
+[data-theme="dark"] .rp-advanced-toggle { background: rgba(0,0,0,0.15); }
+.rp-advanced-toggle svg {
+  width: 10px; height: 10px;
+  flex-shrink: 0;
+  transition: transform 180ms;
+}
+.rp-advanced-toggle.open svg { transform: rotate(180deg); }
+.rp-compact-row {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  align-items: center;
+  gap: var(--s2);
+  padding: 4px 6px;
+  border-radius: var(--r-xs);
+}
+.rp-compact-row:hover { background: rgba(20,161,156,0.06); }
+.rp-compact-label {
+  font-size: 9.5px; font-weight: 800;
+  color: var(--text-3);
+}
+.rp-compact-url {
+  font-family: var(--font-mono);
+  font-size: 8.5px; color: var(--text-2);
+  word-break: break-all;
+  line-height: 1.35;
+}
+.rp-footnote {
+  font-size: 10px; color: var(--text-4);
+  line-height: 1.45;
+  margin-top: var(--s2);
+}
+.rp-empty {
+  font-size: 10.5px; color: var(--text-3);
+  line-height: 1.5;
+}
+.rp-copy-btn {
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 800;
+  color: var(--pool-dark);
+  background: var(--sea-pale);
+  border: 1px solid rgba(20,161,156,0.28);
+  border-radius: var(--r-xs);
+  padding: 2px 8px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 120ms, color 120ms;
+}
+.rp-copy-btn:hover { background: var(--pool); color: #fff; }
+.rp-copy-btn.copied { background: var(--jade); border-color: var(--jade); color: #fff; }
+#rp-endpoints-block.rp-updated {
+  animation: rpFlash 420ms ease;
+}
+@keyframes rpFlash {
+  0%   { opacity: 0.55; transform: translateY(4px); }
+  100% { opacity: 1;   transform: translateY(0); }
+}
+.notes-section-label {
+  font-size: 9px; font-weight: 800;
+  color: var(--text-4);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  margin: var(--s1) 0 var(--s2);
+}
+
+/* ── Sidebar footer ─────────────────────────────────────── */
+.sidebar-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--s3) var(--s4);
+  flex-shrink: 0;
+  display: flex; flex-direction: column; gap: var(--s2);
+  background: var(--surface);
+}
+
+/* Config status toast */
+.config-toast {
+  font-size: 11px; font-weight: 600;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-sm);
+  display: none;
+  animation: fadeIn 160ms ease both;
+}
+.config-toast.visible { display: block; }
+.config-toast.success { background: var(--jade-pale);  color: var(--jade);  }
+.config-toast.error   { background: var(--brick-pale); color: var(--brick); }
+.config-toast.info    { background: var(--sea-mist);   color: var(--pool);  }
+
+/* Pre-check panel */
+.precheck-panel {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.precheck-title {
+  font-size: 9px; font-weight: 800;
+  color: var(--text-4);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.precheck-items { display: flex; flex-direction: column; }
+.precheck-item {
+  display: flex; align-items: flex-start; gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--border);
+  animation: fadeUp 150ms ease both;
+}
+.precheck-item:last-child { border-bottom: none; }
+.precheck-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 4px;
+}
+.precheck-item.success .precheck-dot { background: var(--jade); }
+.precheck-item.error   .precheck-dot { background: var(--brick); }
+.precheck-item.warning .precheck-dot { background: var(--yellow); }
+.precheck-item.running .precheck-dot { background: var(--ocean-15); animation: pulse 1s ease-in-out infinite; }
+.precheck-body { flex: 1; min-width: 0; }
+.precheck-label {
+  font-size: 11px; font-weight: 700;
+  color: var(--text-1); line-height: 1.3;
+}
+.precheck-item.running .precheck-label { color: var(--text-3); }
+.precheck-item.error   .precheck-label { color: var(--brick); }
+.precheck-detail {
+  font-size: 10px; color: var(--text-4);
+  line-height: 1.45; margin-top: 1px; word-break: break-all;
+}
+.precheck-item.error .precheck-detail { color: rgba(181,72,36,0.75); }
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
+  height: 34px; padding: 0 var(--s4);
+  font-family: var(--font-sans);
+  font-size: 11.5px; font-weight: 700;
+  border: none; border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background 130ms, opacity 130ms, box-shadow 130ms, transform 80ms;
+  letter-spacing: 0.02em; white-space: nowrap;
+  position: relative; overflow: hidden;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
+
+.btn-run {
+  width: 100%; height: 40px;
+  background: linear-gradient(135deg, var(--pool) 0%, #0D8E89 100%);
+  color: #fff; font-size: 12.5px;
+  box-shadow: 0 2px 8px rgba(20,161,156,0.30), 0 1px 2px rgba(20,161,156,0.20);
+  border-radius: var(--r-sm);
+}
+.btn-run:hover:not(:disabled) {
+  background: linear-gradient(135deg, #17AFA9 0%, var(--pool) 100%);
+  box-shadow: 0 4px 14px rgba(20,161,156,0.35), 0 1px 3px rgba(20,161,156,0.20);
+}
+.btn-run:disabled { background: var(--ocean-15); box-shadow: none; }
+
+.btn-secondary {
+  background: var(--ocean-08);
+  color: var(--text-2);
+  border: 1.5px solid var(--border);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--sea-mist);
+  border-color: var(--pool);
+  color: var(--pool);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-3);
+  border: 1.5px solid var(--border);
+}
+.btn-ghost:hover:not(:disabled) { background: var(--ocean-08); color: var(--text-1); }
+
+.btn-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s2); }
+
+/* ════════════════════════════════════════════════════════════
+   PRESETS TAB
+════════════════════════════════════════════════════════════ */
+.presets-body {
+  flex: 1; overflow-y: auto;
+  padding: var(--s3) var(--s4);
+  display: flex; flex-direction: column; gap: var(--s2);
+}
+.preset-card {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s3);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: border-color 130ms, background 130ms;
+}
+.preset-card:hover  { border-color: var(--sea); background: var(--sea-mist); }
+.preset-card.active { border-color: var(--pool); background: var(--sea-mist); }
+.preset-icon { font-size: 15px; flex-shrink: 0; }
+.preset-body { flex: 1; min-width: 0; }
+.preset-name {
+  font-size: 12px; font-weight: 700; color: var(--text-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.preset-issuer {
+  font-family: var(--font-mono); font-size: 9px; color: var(--text-4);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.preset-del {
+  background: none; border: none; color: var(--text-4);
+  cursor: pointer; font-size: 14px; padding: 2px 4px;
+  border-radius: var(--r-xs);
+  transition: color 130ms, background 130ms; flex-shrink: 0;
+}
+.preset-del:hover { color: var(--brick); background: var(--brick-pale); }
+.preset-empty {
+  text-align: center; padding: var(--s8) 0;
+  color: var(--text-4); font-size: 11.5px;
+}
+.preset-empty-icon { font-size: 24px; margin-bottom: var(--s2); }
+.preset-save-row { display: flex; gap: var(--s2); }
+.preset-save-row input { flex: 1; height: 34px; font-size: 12px; }
+.btn-preset-save {
+  height: 34px; padding: 0 var(--s3);
+  font-family: var(--font-sans);
+  font-size: 11.5px; font-weight: 700;
+  background: var(--pool); color: #fff;
+  border: none; border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background 130ms; white-space: nowrap; flex-shrink: 0;
+}
+.btn-preset-save:hover { background: var(--sea); }
+
+/* ════════════════════════════════════════════════════════════
+   MAIN PANEL
+════════════════════════════════════════════════════════════ */
+.main { flex: 1; display: flex; overflow: hidden; min-width: 0; }
+.run-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); min-width: 280px; }
+
+/* Drag handle — resize Results pane */
+.pane-resizer {
+  width: 7px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  position: relative;
+  z-index: 20;
+  margin: 0 -1px;
+  touch-action: none;
+}
+.pane-resizer::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  background: var(--json-dim);
+  transition: width 140ms, background 140ms, box-shadow 140ms;
+}
+.pane-resizer:hover::after,
+.pane-resizer.dragging::after {
+  width: 3px;
+  background: var(--sea);
+  box-shadow: 0 0 10px rgba(65,200,195,0.45);
+}
+body.is-resizing { cursor: col-resize !important; user-select: none; }
+body.is-resizing * { cursor: col-resize !important; }
+
+/* Progress strip */
+.progress-strip {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: var(--s4);
+  padding: var(--s3) var(--s5);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+}
+.progress-bar-track {
+  flex: 1; height: 4px;
+  background: var(--border);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pool) 0%, var(--sea) 100%);
+  border-radius: var(--r-pill);
+  transition: width 400ms ease;
+  box-shadow: 0 0 8px rgba(65,200,195,0.40);
+}
+.progress-count {
+  font-size: 10.5px; font-weight: 800;
+  color: var(--text-3); white-space: nowrap; flex-shrink: 0;
+}
+.progress-count em { color: var(--text-4); font-style: normal; font-weight: 600; }
+.progress-label {
+  font-size: 10.5px; color: var(--text-4);
+  flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.progress-clear {
+  height: 26px; padding: 0 var(--s3);
+  font-family: var(--font-sans);
+  font-size: 10.5px; font-weight: 700;
+  color: var(--text-3);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer; flex-shrink: 0;
+  transition: background 130ms, color 130ms, border-color 130ms;
+}
+.progress-clear:hover { background: var(--ocean-08); color: var(--text-1); border-color: var(--border-mid); }
+
+/* Steps feed */
+.steps-feed {
+  flex: 1; overflow-y: auto;
+  padding: var(--s5);
+  display: flex; flex-direction: column;
+  gap: var(--s2);
+}
+
+/* Step cards */
+.step-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-left: 3px solid transparent;
+  border-radius: var(--r-md);
+  padding: var(--s3) var(--s4);
+  animation: fadeUp 200ms ease both;
+  transition: border-color 240ms, background 240ms;
+  box-shadow: var(--shadow-xs);
+}
+.step-card.running { border-left-color: var(--sea);  border-color: var(--sea-pale); background: var(--sea-mist); }
+.step-card.success { border-left-color: var(--jade); }
+.step-card.warning { border-left-color: var(--yellow); border-color: var(--yellow-mid); background: var(--yellow-pale); }
+.step-card.error   { border-left-color: var(--brick); border-color: var(--brick-mid); background: var(--brick-pale); }
+.step-card.sub {
+  margin-left: var(--s5);
+  background: var(--surface-2);
+  border-style: dashed;
+  box-shadow: none;
+}
+.step-card.sub.warning { background: var(--yellow-pale); }
+.step-card.sub.error   { background: var(--brick-pale); }
+
+.step-header {
+  display: flex; align-items: center;
+  gap: var(--s2); justify-content: space-between;
+}
+.step-title {
+  font-size: 11.5px; font-weight: 800;
+  color: var(--text-1); line-height: 1.3; flex: 1;
+}
+.step-card.running .step-title { color: var(--text-3); }
+.step-card.error   .step-title { color: var(--brick); }
+.step-card.warning .step-title { color: #8A5700; }
+
+.step-actions { display: flex; gap: var(--s1); flex-shrink: 0; }
+.step-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-4);
+  font-family: var(--font-sans);
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--r-xs);
+  cursor: pointer;
+  transition: background 110ms, color 110ms, border-color 110ms;
+  letter-spacing: 0.02em; white-space: nowrap;
+}
+.step-btn:hover { background: var(--sea-mist); color: var(--pool); border-color: var(--sea); }
+.step-btn.copied { background: var(--sea-mist); color: var(--pool); border-color: var(--sea); }
+
+.step-detail {
+  font-size: 11px; color: var(--text-3);
+  margin-top: var(--s1); line-height: 1.55; word-break: break-all;
+}
+.step-card.error   .step-detail { color: rgba(181,72,36,0.80); }
+.step-card.warning .step-detail { color: rgba(138,87,0,0.80); }
+
+.step-spinner {
+  width: 12px; height: 12px;
+  border: 2px solid var(--border);
+  border-top-color: var(--pool);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+  flex-shrink: 0;
+}
+
+/* Claims table */
+.claims-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: var(--s2); font-size: 10.5px;
+}
+.claims-table th {
+  text-align: left; font-size: 8.5px; font-weight: 800;
+  color: var(--text-4); text-transform: uppercase;
+  letter-spacing: 0.10em;
+  padding: var(--s1) var(--s2);
+  border-bottom: 1px solid var(--border);
+}
+.claims-table td {
+  padding: var(--s1) var(--s2);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top; line-height: 1.45;
+}
+.claims-table tr:last-child td { border-bottom: none; }
+.claims-table .claim-key {
+  font-family: var(--font-mono); font-weight: 600;
+  color: var(--text-2); white-space: nowrap;
+}
+.claims-table .claim-val { color: var(--text-1); word-break: break-all; }
+.claims-table .claim-desc { color: var(--text-4); font-size: 9.5px; }
+.claims-table tr.claim-highlight td { background: var(--sea-mist); }
+.claims-table tr.claim-warn td   { background: var(--yellow-pale); }
+.claims-table tr.claim-error td  { background: var(--brick-pale); }
+
+/* ════════════════════════════════════════════════════════════
+   JSON PANE
+════════════════════════════════════════════════════════════ */
+.json-pane {
+  width: var(--json-w);
+  min-width: 200px;
+  max-width: 80%;
+  flex-shrink: 0;
+  border-left: 1px solid var(--json-dim);
+  display: flex; flex-direction: column;
+  background: var(--json-bg);
+  overflow: hidden;
+}
+.json-pane-head {
+  padding: var(--s3) var(--s4);
+  border-bottom: 1px solid var(--json-dim);
+  display: flex; align-items: center; gap: var(--s2);
+  flex-shrink: 0;
+}
+.json-pane-title {
+  font-size: 9px; font-weight: 800;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  flex: 1;
+}
+.json-copy {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.35);
+  font-family: var(--font-sans);
+  font-size: 9.5px; font-weight: 700;
+  padding: 3px 9px; border-radius: var(--r-xs);
+  cursor: pointer;
+  transition: background 110ms, color 110ms;
+}
+.json-copy:hover { background: rgba(255,255,255,0.11); color: rgba(255,255,255,0.70); }
+
+.json-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--json-dim);
+  flex-shrink: 0;
+  padding: 0 var(--s2);
+}
+.json-tab {
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-sans);
+  font-size: 10px; font-weight: 700;
+  color: rgba(255,255,255,0.25);
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 130ms, border-color 130ms;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.json-tab.active { color: var(--sea); border-bottom-color: var(--sea); }
+.json-tab:hover:not(.active) { color: rgba(255,255,255,0.50); }
+
+#json-output {
+  flex: 1; overflow-y: auto; overflow-x: auto;
+  padding: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--json-text);
+  line-height: 1.80; white-space: pre;
+  background: transparent; border: none; outline: none;
+  resize: none;
+  width: 100%;
+  min-height: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DIALOG
+════════════════════════════════════════════════════════════ */
+.dialog-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,15,30,0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 200ms ease both;
+}
+.dialog {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  width: 520px; max-width: 92vw;
+  box-shadow: var(--shadow-dialog);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  animation: slideUp 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.dialog-head {
+  background: var(--ocean);
+  padding: var(--s5) var(--s6) var(--s4);
+  position: relative;
+  overflow: hidden;
+}
+.dialog-head::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--pool), var(--sea), transparent);
+}
+.dialog-head h3 { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.3; }
+.dialog-head p  { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.dialog-body { padding: var(--s5) var(--s6); }
+.dialog-body textarea {
+  height: 90px; resize: vertical;
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6;
+}
+.dialog-body .field-label { font-size: 11px; font-weight: 700; color: var(--text-2); margin-bottom: var(--s2); display: block; }
+.dialog-footer {
+  padding: var(--s3) var(--s6) var(--s5);
+  display: flex; gap: var(--s2); justify-content: flex-end;
+  border-top: 1px solid var(--border);
+}
+
+/* ════════════════════════════════════════════════════════════
+   ANIMATIONS
+════════════════════════════════════════════════════════════ */
+@keyframes fadeUp  { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+@keyframes dropIn  { from { opacity:0; transform:translateY(-6px) } to { opacity:1; transform:translateY(0) } }
+@keyframes spin    { to { transform:rotate(360deg) } }
+@keyframes pulse   { 0%,100% { opacity:1 } 50% { opacity:0.35 } }
+@keyframes scoreGrow { from { stroke-dashoffset: 220 } }
+
+/* ════════════════════════════════════════════════════════════
+   HEALTH SCORE PANEL
+════════════════════════════════════════════════════════════ */
+.health-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  margin: var(--s4) var(--s4) 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 300ms ease both;
+}
+.health-header {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s3) var(--s4);
+  background: var(--ocean);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.health-header-title { font-size: 11px; font-weight: 800; color: #fff; letter-spacing: .05em; text-transform: uppercase; flex: 1; }
+.health-export-btn {
+  font-size: 10px; font-weight: 700; padding: 3px 10px;
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.75); border-radius: var(--r-xs); cursor: pointer;
+  transition: background 120ms, color 120ms;
+}
+.health-export-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+.health-body { display: flex; align-items: center; gap: 0; padding: var(--s4); }
+.health-score-ring { position: relative; flex-shrink: 0; width: 88px; height: 88px; }
+.health-score-ring svg { transform: rotate(-90deg); }
+.health-ring-bg   { fill: none; stroke: var(--surface-3); stroke-width: 7; }
+.health-ring-fill { fill: none; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 800ms cubic-bezier(.4,0,.2,1), stroke 400ms; animation: scoreGrow 800ms cubic-bezier(.4,0,.2,1) both; }
+.health-ring-fill.grade-a { stroke: var(--jade); }
+.health-ring-fill.grade-b { stroke: var(--sea); }
+.health-ring-fill.grade-c { stroke: var(--yellow); }
+.health-ring-fill.grade-d { stroke: #e88a00; }
+.health-ring-fill.grade-f { stroke: var(--brick); }
+.health-score-label {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0;
+}
+.health-score-num  { font-size: 22px; font-weight: 800; color: var(--text-1); line-height: 1; }
+.health-score-denom { font-size: 9px; color: var(--text-4); font-weight: 700; }
+.health-categories { flex: 1; display: flex; flex-direction: column; gap: 5px; padding-left: var(--s4); }
+.health-cat { display: flex; align-items: center; gap: var(--s2); }
+.health-cat-label { font-size: 10px; color: var(--text-3); font-weight: 600; width: 100px; flex-shrink: 0; }
+.health-cat-bar-track { flex: 1; height: 5px; background: var(--surface-3); border-radius: 99px; overflow: hidden; }
+.health-cat-bar-fill  { height: 100%; border-radius: 99px; transition: width 600ms cubic-bezier(.4,0,.2,1); }
+.health-cat-bar-fill.ok   { background: var(--jade); }
+.health-cat-bar-fill.warn { background: var(--yellow); }
+.health-cat-bar-fill.err  { background: var(--brick); }
+.health-cat-score { font-size: 10px; font-weight: 700; color: var(--text-2); width: 28px; text-align: right; flex-shrink: 0; }
+.health-pills { display: flex; gap: var(--s2); padding: 0 var(--s4) var(--s3); flex-wrap: wrap; }
+.health-pill {
+  font-size: 9.5px; font-weight: 700; padding: 2px 8px;
+  border-radius: var(--r-pill); border: 1px solid transparent;
+}
+.health-pill.pass { background: var(--jade-pale); color: var(--jade); border-color: rgba(26,155,107,.2); }
+.health-pill.warn { background: var(--yellow-pale); color: #996600; border-color: rgba(255,168,0,.25); }
+.health-pill.fail { background: var(--brick-pale); color: var(--brick); border-color: rgba(181,72,36,.2); }
+
+/* ════════════════════════════════════════════════════════════
+   SCOPE COVERAGE ANALYSER
+════════════════════════════════════════════════════════════ */
+.scope-analyser {
+  margin: var(--s3) var(--s4) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 320ms ease both;
+}
+.scope-analyser-head {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s2) var(--s4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.scope-analyser-title { font-size: 10px; font-weight: 800; color: var(--text-2); letter-spacing: .05em; text-transform: uppercase; flex: 1; }
+.scope-analyser table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+.scope-analyser th { padding: 5px 12px; font-size: 9px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--text-4); background: var(--surface-2); border-bottom: 1px solid var(--border); text-align: left; }
+.scope-analyser td { padding: 5px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.scope-analyser tr:last-child td { border-bottom: none; }
+.scope-analyser tr.sa-ok   td { background: transparent; }
+.scope-analyser tr.sa-miss td { background: var(--yellow-pale); }
+.scope-analyser tr.sa-na   td { background: var(--surface-2); color: var(--text-4); }
+.sa-claim  { font-family: var(--font-mono); font-size: 9.5px; color: var(--text-1); }
+.sa-scope  { font-size: 9px; color: var(--text-3); }
+.sa-status { font-size: 9.5px; font-weight: 700; }
+.sa-status.ok   { color: var(--jade); }
+.sa-status.miss { color: var(--yellow); }
+.sa-status.na   { color: var(--text-4); }
+.sa-note   { font-size: 9px; color: var(--text-3); line-height: 1.4; }
+
+/* ════════════════════════════════════════════════════════════
+   TOKEN TIMELINE
+════════════════════════════════════════════════════════════ */
+.token-timeline {
+  margin: var(--s3) var(--s4) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 340ms ease both;
+}
+.timeline-head {
+  display: flex; align-items: center;
+  padding: var(--s2) var(--s4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.timeline-title { font-size: 10px; font-weight: 800; color: var(--text-2); letter-spacing: .05em; text-transform: uppercase; flex: 1; }
+.timeline-body { padding: var(--s3) var(--s4) var(--s4); }
+.timeline-row { margin-bottom: var(--s3); }
+.timeline-row:last-child { margin-bottom: 0; }
+.timeline-label { font-size: 9.5px; font-weight: 700; color: var(--text-2); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.timeline-label span { font-size: 9px; font-weight: 600; color: var(--text-4); font-family: var(--font-mono); }
+.timeline-track { position: relative; height: 10px; background: var(--surface-3); border-radius: 99px; overflow: visible; }
+.timeline-fill {
+  position: absolute; top: 0; height: 100%; border-radius: 99px;
+  transition: width 600ms cubic-bezier(.4,0,.2,1);
+}
+.timeline-fill.id-token  { background: linear-gradient(90deg, var(--pool), var(--sea)); }
+.timeline-fill.access    { background: linear-gradient(90deg, var(--jade), #27c988); }
+.timeline-fill.refresh   { background: linear-gradient(90deg, #7c5cbf, #a37dd6); }
+.timeline-now {
+  position: absolute; top: -3px; width: 2px; height: 16px;
+  background: var(--brick); border-radius: 1px;
+  box-shadow: 0 0 4px rgba(181,72,36,.6);
+}
+.timeline-now::after {
+  content: 'now';
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  font-size: 7.5px; font-weight: 800; color: var(--brick); white-space: nowrap; letter-spacing: .04em;
+}
+.timeline-legend { display: flex; gap: var(--s4); margin-top: var(--s3); flex-wrap: wrap; }
+.timeline-legend-item { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--text-3); }
+.timeline-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.tld-id   { background: var(--pool); }
+.tld-at   { background: var(--jade); }
+.tld-rt   { background: #7c5cbf; }
+
+/* ════════════════════════════════════════════════════════════
+   DISCOVERY INSPECTOR
+════════════════════════════════════════════════════════════ */
+.discovery-inspector {
+  margin: var(--s3) var(--s4) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 360ms ease both;
+}
+.di-head {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s2) var(--s4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; user-select: none;
+}
+.di-title { font-size: 10px; font-weight: 800; color: var(--text-2); letter-spacing: .05em; text-transform: uppercase; flex: 1; }
+.di-toggle-btn { background: none; border: none; cursor: pointer; color: var(--text-4); padding: 2px; display: flex; align-items: center; }
+.di-toggle-btn svg { transition: transform 200ms; }
+.di-toggle-btn.open svg { transform: rotate(180deg); }
+.di-body { display: none; padding: var(--s3) var(--s4); }
+.di-body.open { display: block; }
+.di-section { margin-bottom: var(--s3); }
+.di-section-title { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-4); margin-bottom: var(--s2); }
+.di-chip-row { display: flex; flex-wrap: wrap; gap: 4px; }
+.di-chip {
+  font-family: var(--font-mono); font-size: 9px; padding: 2px 6px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--r-xs); color: var(--text-2);
+}
+.di-chip.supported { background: var(--jade-pale); border-color: rgba(26,155,107,.2); color: var(--jade); }
+.di-chip.missing   { background: var(--brick-pale); border-color: rgba(181,72,36,.2); color: var(--brick); }
+.di-endpoint { display: flex; flex-direction: column; gap: 1px; margin-bottom: 6px; }
+.di-endpoint:last-child { margin-bottom: 0; }
+.di-ep-label { font-size: 9px; font-weight: 700; color: var(--text-3); }
+.di-ep-url   { font-family: var(--font-mono); font-size: 9px; color: var(--text-2); word-break: break-all; line-height: 1.4; }
+
+/* ════════════════════════════════════════════════════════════
+   MULTI-RUN DIFF
+════════════════════════════════════════════════════════════ */
+.diff-panel {
+  margin: var(--s3) var(--s4) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 380ms ease both;
+}
+.diff-head {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s2) var(--s4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.diff-title { font-size: 10px; font-weight: 800; color: var(--text-2); letter-spacing: .05em; text-transform: uppercase; flex: 1; }
+.diff-save-btn {
+  font-size: 9.5px; font-weight: 700; padding: 3px 9px;
+  background: var(--surface-3); border: 1px solid var(--border);
+  color: var(--text-2); border-radius: var(--r-xs); cursor: pointer;
+  transition: background 120ms;
+}
+.diff-save-btn:hover { background: var(--border); }
+.diff-body { padding: var(--s3) var(--s4); }
+.diff-empty { font-size: 10.5px; color: var(--text-4); text-align: center; padding: var(--s4) 0; }
+.diff-runs-label { display: flex; gap: var(--s2); margin-bottom: var(--s2); }
+.diff-run-badge { font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: var(--r-pill); }
+.diff-run-badge.run-a { background: var(--sea-pale); color: var(--pool-dark); }
+.diff-run-badge.run-b { background: var(--yellow-pale); color: #885500; }
+.diff-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.diff-table th { padding: 4px 8px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--text-4); background: var(--surface-2); border-bottom: 1px solid var(--border); text-align: left; }
+.diff-table td { padding: 4px 8px; border-bottom: 1px solid var(--border); vertical-align: top; font-family: var(--font-mono); font-size: 9.5px; }
+.diff-table tr:last-child td { border-bottom: none; }
+.diff-table .diff-key { color: var(--text-2); font-weight: 600; }
+.diff-table .diff-same { color: var(--text-4); }
+.diff-table .diff-added   td { background: var(--jade-pale); }
+.diff-table .diff-removed td { background: var(--brick-pale); }
+.diff-table .diff-changed td { background: var(--yellow-pale); }
+.diff-val-a { color: var(--brick); }
+.diff-val-b { color: var(--jade); }
+
+/* ════════════════════════════════════════════════════════════
+   JSON PANE EXTRA TABS (Introspect / Revoke)
+════════════════════════════════════════════════════════════ */
+.json-action-row {
+  display: flex; gap: var(--s2); padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--json-dim); flex-shrink: 0; flex-wrap: wrap;
+}
+.json-action-btn {
+  font-size: 9.5px; font-weight: 700; padding: 3px 9px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.50); border-radius: var(--r-xs); cursor: pointer;
+  transition: background 120ms, color 120ms; font-family: var(--font-sans);
+}
+.json-action-btn:hover { background: rgba(255,255,255,0.13); color: rgba(255,255,255,0.85); }
+.json-action-btn.active { background: rgba(65,200,195,0.18); border-color: rgba(65,200,195,0.35); color: var(--sea); }
+.json-action-btn:disabled { opacity: .35; cursor: default; }
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <a class="topbar-logo-link" href="https://jumpcloud.com" target="_blank" rel="noopener noreferrer" aria-label="JumpCloud">
+      <img class="topbar-logo"
+        src="https://jumpcloud.com/wp-content/themes/jumpcloud/assets/images/logos/jumpcloud-icon-wordmark-pure-white.png"
+        alt="JumpCloud"
+        width="132" height="26"/>
+    </a>
+    <div class="topbar-titles">
+      <span class="topbar-name">Power OIDC Verifier</span>
+      <span class="topbar-sub">OpenID Connect</span>
+    </div>
+  </div>
+  <div class="topbar-divider"></div>
+  <span class="topbar-pill">v3.0</span>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-status">
+    <div class="status-dot" id="status-dot"></div>
+    <span class="status-label" id="status-label">Idle</span>
+  </div>
+  <button class="theme-btn" style="margin-right:var(--s2);" onclick="saveRunForDiff()" title="Save current run claims for diff comparison">
+    <span class="theme-btn-icon">&#8645;</span>
+    <span>Save Run</span>
+  </button>
+  <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span class="theme-btn-icon" id="theme-icon">&#9790;</span>
+    <span id="theme-label">Dark</span>
+  </button>
+</header>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-tabs">
+      <button class="sidebar-tab active" onclick="switchTab('config')">Setup</button>
+      <button class="sidebar-tab" onclick="switchTab('urls')">URLs</button>
+      <button class="sidebar-tab" onclick="switchTab('presets')">Presets</button>
+    </div>
+
+    <!-- Setup tab -->
+    <div class="tab-panel active" id="tab-config">
+      <div class="sidebar-body">
+
+        <p class="sidebar-intro">Simulates your app to test its JumpCloud login configuration.</p>
+
+        <div class="sb-section">
+          <div class="sb-section-head">From JumpCloud SSO app</div>
+          <div class="field-group">
+            <label class="field-label" for="clientId">Client ID</label>
+            <input type="text" id="clientId" placeholder="64abc123def456…"/>
+          </div>
+          <div class="field-group" id="secret-group">
+            <label class="field-label" for="clientSecret">Client Secret</label>
+            <input type="password" id="clientSecret" placeholder="••••••••"/>
+            <p class="field-hint" style="margin-top:2px;"><strong style="color:var(--yellow);">Not saved.</strong> The secret is never written to localStorage. Re-enter it each session.</p>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="redirectUri">Redirect URI</label>
+            <input type="text" id="redirectUri" placeholder="http://localhost:8080/callback"/>
+          </div>
+        </div>
+
+        <div class="sb-section">
+          <div class="sb-section-head">JumpCloud region</div>
+          <div class="region-chips" id="region-chips">
+            <button type="button" class="region-chip active" data-region="us" onclick="selectRegion('us')">US</button>
+            <button type="button" class="region-chip" data-region="eu" onclick="selectRegion('eu')">EU</button>
+            <button type="button" class="region-chip" data-region="in" onclick="selectRegion('in')">IN</button>
+          </div>
+          <label class="slash-toggle">
+            <input type="checkbox" id="issuer-trailing-slash" onchange="onIssuerSlashToggle()"/>
+            Trailing slash on issuer URL
+          </label>
+        </div>
+
+        <div class="sb-section">
+          <div class="sb-section-head">Login flow</div>
+          <div class="field-group">
+            <label class="field-label">Auth method</label>
+            <div class="auth-seg">
+              <div class="auth-seg-item">
+                <input type="radio" name="authType" id="auth-basic" value="client_secret_basic" checked onchange="onAuthTypeChange()"/>
+                <label class="auth-seg-label" for="auth-basic"><span class="auth-seg-name">Basic</span></label>
+              </div>
+              <div class="auth-seg-item">
+                <input type="radio" name="authType" id="auth-post" value="client_secret_post" onchange="onAuthTypeChange()"/>
+                <label class="auth-seg-label" for="auth-post"><span class="auth-seg-name">POST</span></label>
+              </div>
+              <div class="auth-seg-item">
+                <input type="radio" name="authType" id="auth-pkce" value="none_pkce" onchange="onAuthTypeChange()"/>
+                <label class="auth-seg-label" for="auth-pkce"><span class="auth-seg-name">PKCE</span></label>
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Scopes</label>
+            <div class="scope-wrap">
+              <div class="scope-trigger" id="scope-trigger" onclick="toggleScopeDropdown()">
+                <span id="scope-label">openid profile email</span>
+                <svg class="scope-chevron" id="scope-chevron" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="scope-dropdown" id="scope-dropdown">
+                <div class="scope-item locked">
+                  <input type="checkbox" checked disabled/>
+                  <div class="scope-item-info">
+                    <span class="scope-item-name">openid</span>
+                    <span class="scope-item-desc">Required</span>
+                  </div>
+                </div>
+                <div class="scope-item" onclick="toggleScope(this,'profile')">
+                  <input type="checkbox" id="scope-profile" checked onclick="event.stopPropagation()"/>
+                  <div class="scope-item-info">
+                    <span class="scope-item-name">profile</span>
+                    <span class="scope-item-desc">Name</span>
+                  </div>
+                </div>
+                <div class="scope-item" onclick="toggleScope(this,'email')">
+                  <input type="checkbox" id="scope-email" checked onclick="event.stopPropagation()"/>
+                  <div class="scope-item-info">
+                    <span class="scope-item-name">email</span>
+                    <span class="scope-item-desc">Email address</span>
+                  </div>
+                </div>
+                <div class="scope-item" onclick="toggleScope(this,'offline_access')">
+                  <input type="checkbox" id="scope-offline_access" onclick="event.stopPropagation()"/>
+                  <div class="scope-item-info">
+                    <span class="scope-item-name">offline_access</span>
+                    <span class="scope-item-desc">Refresh token</span>
+                  </div>
+                </div>
+                <div class="scope-item" onclick="toggleScope(this,'address')">
+                  <input type="checkbox" id="scope-address" onclick="event.stopPropagation()"/>
+                  <div class="scope-item-info">
+                    <span class="scope-item-name">address</span>
+                    <span class="scope-item-desc">Address</span>
+                  </div>
+                </div>
+                <div class="scope-item" onclick="toggleScope(this,'phone')">
+                  <input type="checkbox" id="scope-phone" onclick="event.stopPropagation()"/>
+                  <div class="scope-item-info">
+                    <span class="scope-item-name">phone</span>
+                    <span class="scope-item-desc">Phone</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="sb-advanced-toggle" id="sb-advanced-toggle" onclick="toggleSidebarAdvanced(this)">
+          <span>Custom issuer URL</span>
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+
+        <div class="sb-advanced" id="sb-advanced">
+          <p class="field-hint" style="margin:0;">Region buttons above set this automatically. Only edit if your app uses a non-standard issuer.</p>
+          <div class="field-group">
+            <label class="field-label" for="issuer">Issuer URL</label>
+            <div class="issuer-combo" id="issuer-combo">
+              <input type="text" id="issuer" class="issuer-input"
+                placeholder="https://oauth.id.jumpcloud.com"
+                autocomplete="off" spellcheck="false"
+                oninput="onIssuerInput()" onfocus="openIssuerDropdown()"/>
+              <button class="issuer-chevron-btn" type="button" onclick="toggleIssuerDropdown()" tabindex="-1">
+                <svg viewBox="0 0 12 12" fill="none">
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="issuer-dropdown" id="issuer-dropdown">
+                <div class="issuer-group-label">JumpCloud Regions</div>
+                <div class="issuer-option" data-value="https://oauth.id.jumpcloud.com" onclick="selectIssuer(this)">
+                  <span class="issuer-badge">US</span>
+                  <div class="issuer-opt-body">
+                    <span class="issuer-opt-name">United States</span>
+                    <span class="issuer-opt-url">https://oauth.id.jumpcloud.com</span>
+                  </div>
+                </div>
+                <div class="issuer-option" data-value="https://oauth.id.eu.jumpcloud.com" onclick="selectIssuer(this)">
+                  <span class="issuer-badge eu">EU</span>
+                  <div class="issuer-opt-body">
+                    <span class="issuer-opt-name">European Union</span>
+                    <span class="issuer-opt-url">https://oauth.id.eu.jumpcloud.com</span>
+                  </div>
+                </div>
+                <div class="issuer-option" data-value="https://oauth.id.in.jumpcloud.com" onclick="selectIssuer(this)">
+                  <span class="issuer-badge in">IN</span>
+                  <div class="issuer-opt-body">
+                    <span class="issuer-opt-name">India</span>
+                    <span class="issuer-opt-url">https://oauth.id.in.jumpcloud.com</span>
+                  </div>
+                </div>
+                <div class="issuer-divider"></div>
+                <div class="issuer-group-label">Trailing Slash Variants</div>
+                <div class="issuer-option" data-value="https://oauth.id.jumpcloud.com/" onclick="selectIssuer(this)">
+                  <span class="issuer-badge var">US/</span>
+                  <div class="issuer-opt-body">
+                    <span class="issuer-opt-name">US (trailing slash)</span>
+                    <span class="issuer-opt-url">https://oauth.id.jumpcloud.com/</span>
+                  </div>
+                </div>
+                <div class="issuer-option" data-value="https://oauth.id.eu.jumpcloud.com/" onclick="selectIssuer(this)">
+                  <span class="issuer-badge var">EU/</span>
+                  <div class="issuer-opt-body">
+                    <span class="issuer-opt-name">EU (trailing slash)</span>
+                    <span class="issuer-opt-url">https://oauth.id.eu.jumpcloud.com/</span>
+                  </div>
+                </div>
+                <div class="issuer-option" data-value="https://oauth.id.in.jumpcloud.com/" onclick="selectIssuer(this)">
+                  <span class="issuer-badge var">IN/</span>
+                  <div class="issuer-opt-body">
+                    <span class="issuer-opt-name">IN (trailing slash)</span>
+                    <span class="issuer-opt-url">https://oauth.id.in.jumpcloud.com/</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /sidebar-body -->
+
+      <div class="sidebar-footer">
+        <div class="config-toast" id="config-status"></div>
+        <div class="precheck-panel" id="precheck-panel" style="display:none;">
+          <div class="precheck-title">Pre-Check Results</div>
+          <div class="precheck-items" id="precheck-items"></div>
+        </div>
+        <button class="btn btn-run" id="run-btn" onclick="startTest()">&#9654;&#xFE0E;&nbsp; Run Verification</button>
+        <div class="btn-row">
+          <button class="btn btn-secondary" id="precheck-btn" onclick="runPreCheck()">Pre-Check</button>
+          <button class="btn btn-secondary" onclick="saveConfig()">Save</button>
+          <button class="btn btn-ghost" onclick="resetConfig()">Reset</button>
+        </div>
+      </div>
+    </div><!-- /tab-config -->
+
+    <!-- URLs tab -->
+    <div class="tab-panel" id="tab-urls">
+      <div class="urls-tab-body">
+        <p class="sidebar-intro" style="margin-bottom:var(--s3);">Paste these into your application. Most apps only need the Discovery URL.</p>
+        <div id="rp-endpoints-block"></div>
+      </div>
+    </div>
+
+    <!-- Presets tab -->
+    <div class="tab-panel" id="tab-presets">
+      <div class="presets-body" id="presets-list"></div>
+      <div class="sidebar-footer">
+        <div class="field-hint" style="margin-bottom:4px;">Save current config as a named preset</div>
+        <div class="preset-save-row">
+          <input type="text" id="preset-name-input" placeholder="Preset name..."/>
+          <button class="btn-preset-save" onclick="savePreset()">Save</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="run-panel">
+      <div class="progress-strip">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+        </div>
+        <div class="progress-count" id="progress-count">0 <span>/ 14</span></div>
+        <div class="progress-label" id="progress-label">Configure and click Run Verification to begin.</div>
+        <button class="progress-clear" onclick="clearAll()">Clear</button>
+      </div>
+      <div class="steps-feed" id="steps-feed"></div>
+    </div>
+
+    <div class="pane-resizer" id="json-pane-resizer" role="separator" aria-orientation="vertical" aria-label="Resize results panel" title="Drag to resize · double-click to reset"></div>
+
+    <!-- JSON pane -->
+    <div class="json-pane" id="json-pane">
+      <div class="json-pane-head">
+        <span class="json-pane-title">Results</span>
+        <button class="json-copy" onclick="copyJson()">Copy</button>
+      </div>
+      <div class="json-tabs">
+        <button class="json-tab active" onclick="switchJsonTab('full')"     id="jtab-full">Full</button>
+        <button class="json-tab"        onclick="switchJsonTab('idtoken')"  id="jtab-idtoken">ID Token</button>
+        <button class="json-tab"        onclick="switchJsonTab('userinfo')" id="jtab-userinfo">UserInfo</button>
+        <button class="json-tab"        onclick="switchJsonTab('access')"   id="jtab-access">Access</button>
+        <button class="json-tab"        onclick="switchJsonTab('introspect')" id="jtab-introspect">Introspect</button>
+      </div>
+      <div class="json-action-row">
+        <button class="json-action-btn" id="btn-introspect" disabled onclick="runIntrospect()">Introspect Token</button>
+        <button class="json-action-btn" id="btn-revoke"     disabled onclick="runRevoke()">Revoke Token</button>
+      </div>
+      <textarea id="json-output" readonly spellcheck="false">// Results will appear here after verification.</textarea>
+    </div>
+  </div>
+</div>
+
+<!-- Redirect dialog -->
+<div class="dialog-backdrop" id="redirect-dialog" style="display:none;">
+  <div class="dialog">
+    <div class="dialog-head">
+      <h3>Paste Redirect URL</h3>
+      <p>Open the auth URL, complete login, then paste the redirect URL below.</p>
+    </div>
+    <div class="dialog-body">
+      <label class="field-label">Full redirect URL (includes <code style="font-family:var(--font-mono);font-size:9.5px;background:rgba(255,255,255,0.10);color:rgba(255,255,255,0.70);padding:1px 5px;border-radius:3px;">?code=...</code>)</label>
+      <textarea id="redirect-url-input" placeholder="https://your-app/callback?code=...&state=..."></textarea>
+    </div>
+    <div class="dialog-footer">
+      <button class="btn btn-ghost" onclick="cancelTest()">Cancel</button>
+      <button class="btn btn-secondary" id="dialog-open-auth-btn" onclick="dialogOpenAuthUrl()">&#9654;&#xFE0E;&nbsp; Open Auth URL</button>
+      <button class="btn btn-run" style="width:auto;" onclick="submitRedirectUrl()">Continue</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Theme ─────────────────────────────────────────────────────────────
+function applyTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  document.getElementById('theme-icon').textContent  = dark ? '\u2600' : '\u263D';
+  document.getElementById('theme-label').textContent = dark ? 'Light' : 'Dark';
+  localStorage.setItem('jc_oidc_theme', dark ? 'dark' : 'light');
+}
+function toggleTheme() {
+  applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+}
+(function() {
+  const s = localStorage.getItem('jc_oidc_theme');
+  applyTheme(s ? s === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+})();
+
+// ── Results pane resize ───────────────────────────────────────────────
+(function initJsonPaneResize() {
+  const resizer = document.getElementById('json-pane-resizer');
+  const main = document.querySelector('.main');
+  if (!resizer || !main) return;
+
+  const JSON_MIN = 200;
+  const RUN_MIN = 280;
+  const JSON_DEFAULT = 304;
+
+  function setJsonWidth(px) {
+    const mainW = main.getBoundingClientRect().width;
+    const maxW = Math.max(JSON_MIN, mainW - RUN_MIN);
+    const clamped = Math.max(JSON_MIN, Math.min(px, maxW));
+    document.documentElement.style.setProperty('--json-w', clamped + 'px');
+    return clamped;
+  }
+
+  const saved = parseInt(localStorage.getItem('jc_oidc_json_width') || '', 10);
+  if (!isNaN(saved) && saved >= JSON_MIN) setJsonWidth(saved);
+
+  let dragging = false;
+
+  function startDrag() {
+    dragging = true;
+    resizer.classList.add('dragging');
+    document.body.classList.add('is-resizing');
+  }
+
+  function stopDrag() {
+    if (!dragging) return;
+    dragging = false;
+    resizer.classList.remove('dragging');
+    document.body.classList.remove('is-resizing');
+    const w = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--json-w'), 10);
+    if (!isNaN(w)) localStorage.setItem('jc_oidc_json_width', String(w));
+  }
+
+  function onMove(clientX) {
+    if (!dragging) return;
+    const mainRect = main.getBoundingClientRect();
+    setJsonWidth(mainRect.right - clientX);
+  }
+
+  resizer.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    startDrag();
+  });
+
+  resizer.addEventListener('dblclick', () => {
+    const w = setJsonWidth(JSON_DEFAULT);
+    localStorage.setItem('jc_oidc_json_width', String(w));
+  });
+
+  document.addEventListener('mousemove', (e) => onMove(e.clientX));
+  document.addEventListener('mouseup', stopDrag);
+
+  resizer.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) return;
+    e.preventDefault();
+    startDrag();
+  }, { passive: false });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!dragging || e.touches.length !== 1) return;
+    onMove(e.touches[0].clientX);
+  }, { passive: true });
+
+  document.addEventListener('touchend', stopDrag);
+  document.addEventListener('touchcancel', stopDrag);
+
+  window.addEventListener('resize', () => {
+    const cur = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--json-w'), 10);
+    if (!isNaN(cur)) setJsonWidth(cur);
+  });
+})();
+
+// ── Tabs ──────────────────────────────────────────────────────────────
+function switchTab(name) {
+  const tabs = ['config', 'urls', 'presets'];
+  document.querySelectorAll('.sidebar-tab').forEach((t, i) => t.classList.toggle('active', tabs[i] === name));
+  document.getElementById('tab-config').classList.toggle('active', name === 'config');
+  document.getElementById('tab-urls').classList.toggle('active', name === 'urls');
+  document.getElementById('tab-presets').classList.toggle('active', name === 'presets');
+  if (name === 'presets') renderPresets();
+  if (name === 'urls') updateIssuerHint(document.getElementById('issuer').value.trim(), false);
+}
+
+function toggleSidebarAdvanced(btn) {
+  const panel = document.getElementById('sb-advanced');
+  if (!panel) return;
+  const open = panel.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.querySelector('span').textContent = open ? 'Hide custom issuer URL' : 'Custom issuer URL';
+}
+
+// ── Issuer combobox ───────────────────────────────────────────────────
+function openIssuerDropdown() {
+  document.getElementById('issuer-dropdown').classList.add('open');
+  document.querySelector('.issuer-chevron-btn').classList.add('open');
+  updateIssuerSelected();
+}
+function closeIssuerDropdown() {
+  document.getElementById('issuer-dropdown').classList.remove('open');
+  document.querySelector('.issuer-chevron-btn').classList.remove('open');
+}
+function toggleIssuerDropdown() {
+  document.getElementById('issuer-dropdown').classList.contains('open') ? closeIssuerDropdown() : openIssuerDropdown();
+}
+function selectIssuer(el) {
+  document.getElementById('issuer').value = el.dataset.value;
+  syncRegionUIFromIssuer();
+  updateIssuerHint(el.dataset.value, false);
+  closeIssuerDropdown();
+}
+function onIssuerInput() {
+  syncRegionUIFromIssuer();
+  updateIssuerHint(document.getElementById('issuer').value.trim(), false);
+}
+function updateIssuerSelected() {
+  const cur = document.getElementById('issuer').value.trim();
+  document.querySelectorAll('.issuer-option').forEach(o => o.classList.toggle('selected', o.dataset.value === cur));
+}
+
+const JC_REGIONS = {
+  us: {
+    code: 'US', label: 'United States',
+    base: 'https://oauth.id.jumpcloud.com',
+    issuer: 'https://oauth.id.jumpcloud.com/',
+    discovery: 'https://oauth.id.jumpcloud.com/.well-known/openid-configuration',
+    jwks: 'https://oauth.id.jumpcloud.com/.well-known/jwks.json',
+    auth: 'https://oauth.id.jumpcloud.com/oauth2/auth',
+    token: 'https://oauth.id.jumpcloud.com/oauth2/token',
+    userinfo: 'https://oauth.id.jumpcloud.com/userinfo'
+  },
+  eu: {
+    code: 'EU', label: 'European Union',
+    base: 'https://oauth.id.eu.jumpcloud.com',
+    issuer: 'https://oauth.id.eu.jumpcloud.com/',
+    discovery: 'https://oauth.id.eu.jumpcloud.com/.well-known/openid-configuration',
+    jwks: 'https://oauth.id.eu.jumpcloud.com/.well-known/jwks.json',
+    auth: 'https://oauth.id.eu.jumpcloud.com/oauth2/auth',
+    token: 'https://oauth.id.eu.jumpcloud.com/oauth2/token',
+    userinfo: 'https://oauth.id.eu.jumpcloud.com/userinfo'
+  },
+  in: {
+    code: 'IN', label: 'India',
+    base: 'https://oauth.id.in.jumpcloud.com',
+    issuer: 'https://oauth.id.in.jumpcloud.com/',
+    discovery: 'https://oauth.id.in.jumpcloud.com/.well-known/openid-configuration',
+    jwks: 'https://oauth.id.in.jumpcloud.com/.well-known/jwks.json',
+    auth: 'https://oauth.id.in.jumpcloud.com/oauth2/auth',
+    token: 'https://oauth.id.in.jumpcloud.com/oauth2/token',
+    userinfo: 'https://oauth.id.in.jumpcloud.com/userinfo'
+  }
+};
+
+function regionKeyFromIssuer(val) {
+  const norm = (val || '').replace(/\/$/, '').toLowerCase();
+  if (norm.includes('.eu.')) return 'eu';
+  if (norm.includes('.in.')) return 'in';
+  if (norm === 'https://oauth.id.jumpcloud.com') return 'us';
+  return null;
+}
+
+let currentRegion = 'us';
+
+function issuerFromRegion(region, trailingSlash) {
+  const base = (JC_REGIONS[region] || JC_REGIONS.us).base;
+  return base + (trailingSlash ? '/' : '');
+}
+
+function applyRegionToIssuer() {
+  const slashEl = document.getElementById('issuer-trailing-slash');
+  const slash = slashEl ? slashEl.checked : false;
+  document.getElementById('issuer').value = issuerFromRegion(currentRegion, slash);
+  updateIssuerHint(document.getElementById('issuer').value, false);
+  updateIssuerSelected();
+}
+
+function selectRegion(region) {
+  currentRegion = region;
+  document.querySelectorAll('.region-chip').forEach(c => c.classList.toggle('active', c.dataset.region === region));
+  applyRegionToIssuer();
+}
+
+function onIssuerSlashToggle() {
+  applyRegionToIssuer();
+}
+
+function syncRegionUIFromIssuer() {
+  const val = document.getElementById('issuer').value.trim();
+  const key = regionKeyFromIssuer(val);
+  const slashEl = document.getElementById('issuer-trailing-slash');
+  if (key) {
+    currentRegion = key;
+    document.querySelectorAll('.region-chip').forEach(c => c.classList.toggle('active', c.dataset.region === key));
+    if (slashEl) slashEl.checked = /\/$/.test(val) && !val.endsWith('//');
+  }
+  updateIssuerSelected();
+}
+
+function rpCompactRow(label, url) {
+  return `<div class="rp-compact-row">
+    <span class="rp-compact-label">${esc(label)}</span>
+    <code class="rp-compact-url">${esc(url)}</code>
+    <button type="button" class="rp-copy-btn" data-url="${esc(url)}" onclick="copyRpUrl(this)">Copy</button>
+  </div>`;
+}
+
+function copyRpUrl(btn) {
+  const url = btn.dataset.url;
+  if (!url) return;
+  navigator.clipboard.writeText(url).then(() => {
+    const orig = btn.dataset.origLabel || btn.textContent;
+    btn.dataset.origLabel = orig;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+function copyRpAll(key) {
+  const r = JC_REGIONS[key];
+  if (!r) return;
+  const text = [
+    `JumpCloud OIDC — ${r.label} (${r.code})`,
+    '',
+    'Discovery (paste this if your app has one URL field):',
+    r.discovery,
+    '',
+    'Issuer:', r.issuer,
+    'JWKS:', r.jwks,
+    'Authorization:', r.auth,
+    'Token:', r.token,
+    'UserInfo:', r.userinfo,
+  ].join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    showConfigStatus('success', 'All URLs copied.');
+  });
+}
+
+function toggleRpAdvanced(btn) {
+  const panel = document.getElementById('rp-advanced');
+  if (!panel) return;
+  const open = panel.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  const n = panel.querySelectorAll('.rp-compact-row').length;
+  btn.querySelector('.rp-advanced-label').textContent = open ? 'Hide individual URLs' : `Show individual URLs (${n})`;
+}
+
+function updateRpEndpoints(val, scrollTo) {
+  const el = document.getElementById('rp-endpoints-block');
+  if (!el) return;
+  const key = regionKeyFromIssuer(val);
+  if (!key) {
+    el.innerHTML = `<p class="rp-empty">Choose US, EU, or IN in the <strong>Setup</strong> tab to see your app's URLs.</p>`;
+    el.classList.remove('rp-updated');
+    void el.offsetWidth;
+    el.classList.add('rp-updated');
+    return;
+  }
+  const r = JC_REGIONS[key];
+  const advancedRows = [
+    ['Issuer', r.issuer],
+    ['JWKS', r.jwks],
+    ['Login', r.auth],
+    ['Token', r.token],
+    ['UserInfo', r.userinfo],
+  ];
+  el.innerHTML = `
+    <span class="rp-region-chip">${esc(r.label)} · ${r.code}</span>
+    <div class="rp-hero">
+      <div class="rp-hero-top">
+        <span class="rp-hero-label">Discovery URL</span>
+        <span class="rp-hero-tag">Start here</span>
+      </div>
+      <p class="rp-hero-desc">Paste this into your app's SSO / OIDC settings. Most apps only need this one URL — it finds the rest automatically.</p>
+      <div class="rp-hero-url-row">
+        <code class="rp-hero-url">${esc(r.discovery)}</code>
+        <button type="button" class="rp-copy-btn rp-copy-primary" data-url="${esc(r.discovery)}" onclick="copyRpUrl(this)">Copy</button>
+      </div>
+      <div class="rp-actions">
+        <button type="button" class="rp-action-link" onclick="copyRpAll('${key}')">Copy all URLs</button>
+      </div>
+    </div>
+    <button type="button" class="rp-advanced-toggle" onclick="toggleRpAdvanced(this)">
+      <span class="rp-advanced-label">Show individual URLs (${advancedRows.length})</span>
+      <svg viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <div class="rp-advanced" id="rp-advanced">
+      ${advancedRows.map(([label, url]) => rpCompactRow(label, url)).join('')}
+    </div>
+    <p class="rp-footnote">Login error about "issuer"? Try the trailing-slash Issuer variant in the dropdown above.</p>`;
+  el.classList.remove('rp-updated');
+  void el.offsetWidth;
+  el.classList.add('rp-updated');
+  if (scrollTo) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function updateIssuerHint(val, scrollTo) {
+  updateRpEndpoints(val, !!scrollTo);
+}
+
+// ── Scope dropdown ────────────────────────────────────────────────────
+function toggleScopeDropdown() {
+  const dd = document.getElementById('scope-dropdown');
+  const tr = document.getElementById('scope-trigger');
+  const ch = document.getElementById('scope-chevron');
+  const open = dd.classList.toggle('open');
+  tr.classList.toggle('open', open);
+  ch.classList.toggle('flipped', open);
+}
+function toggleScope(item, name) {
+  const cb = document.getElementById('scope-' + name);
+  if (!cb) return;
+  cb.checked = !cb.checked;
+  updateScopeLabel();
+}
+function updateScopeLabel() {
+  const scopes = getScopeValue();
+  document.getElementById('scope-label').textContent = scopes || 'openid';
+}
+function getScopeValue() {
+  const extras = ['profile','email','offline_access','address','phone'].filter(s => {
+    const el = document.getElementById('scope-' + s);
+    return el && el.checked;
+  });
+  return ['openid', ...extras].join(' ');
+}
+
+// ── Auth type ─────────────────────────────────────────────────────────
+function onAuthTypeChange() {
+  const isPkce = document.querySelector('input[name="authType"]:checked').value === 'none_pkce';
+  document.getElementById('secret-group').style.display = isPkce ? 'none' : '';
+}
+
+// ── Form values ───────────────────────────────────────────────────────
+function getFormValues() {
+  return {
+    clientId:     document.getElementById('clientId').value.trim(),
+    clientSecret: document.getElementById('clientSecret').value.trim(),
+    issuer:       document.getElementById('issuer').value.trim(),
+    redirectUri:  document.getElementById('redirectUri').value.trim(),
+    authType:     document.querySelector('input[name="authType"]:checked').value,
+    scope:        getScopeValue()
+  };
+}
+function applyFormValues(cfg) {
+  document.getElementById('clientId').value     = cfg.clientId     || '';
+  document.getElementById('clientSecret').value = cfg.clientSecret || '';
+  document.getElementById('issuer').value       = cfg.issuer       || 'https://oauth.id.jumpcloud.com';
+  document.getElementById('redirectUri').value  = cfg.redirectUri  || '';
+  if (cfg.authType) {
+    const r = document.querySelector('input[name="authType"][value="' + cfg.authType + '"]');
+    if (r) { r.checked = true; onAuthTypeChange(); }
+  }
+  if (cfg.scope) {
+    ['profile','email','offline_access','address','phone'].forEach(s => {
+      const el = document.getElementById('scope-' + s);
+      if (el) el.checked = cfg.scope.includes(s);
+    });
+    updateScopeLabel();
+  }
+  updateIssuerHint(document.getElementById('issuer').value);
+  syncRegionUIFromIssuer();
+  updateIssuerSelected();
+}
+function validateFields(cfg) {
+  const errs = [];
+  if (!cfg.clientId)    errs.push('Client ID');
+  if (!cfg.issuer)      errs.push('Issuer URL');
+  if (!cfg.redirectUri) errs.push('Redirect URI');
+  if (cfg.authType !== 'none_pkce' && !cfg.clientSecret) errs.push('Client Secret');
+  return errs;
+}
+
+// ── Save / Load / Reset ───────────────────────────────────────────────
+function saveConfig() {
+  const cfg = getFormValues();
+  const toSave = { ...cfg };
+  delete toSave.clientSecret; // never persist secrets to localStorage
+  localStorage.setItem('jc_oidc_config', JSON.stringify(toSave));
+  showConfigStatus('success', 'Config saved (secret not included).');
+}
+function resetConfig() {
+  applyFormValues({ issuer: 'https://oauth.id.jumpcloud.com', scope: 'openid profile email', authType: 'client_secret_basic' });
+  showConfigStatus('info', 'Reset to defaults.');
+}
+function showConfigStatus(type, msg) {
+  const el = document.getElementById('config-status');
+  el.textContent = msg; el.className = 'config-toast visible ' + type;
+  setTimeout(() => el.classList.remove('visible'), 3000);
+}
+(function loadSaved() {
+  const s = localStorage.getItem('jc_oidc_config');
+  if (s) try { applyFormValues(JSON.parse(s)); } catch(e) {}
+  else applyFormValues({ issuer: 'https://oauth.id.jumpcloud.com', scope: 'openid profile email', authType: 'client_secret_basic' });
+})();
+
+// ── Presets ───────────────────────────────────────────────────────────
+function getPresets() {
+  try { return JSON.parse(localStorage.getItem('jc_oidc_presets') || '[]'); } catch(e) { return []; }
+}
+function savePresets(presets) {
+  localStorage.setItem('jc_oidc_presets', JSON.stringify(presets));
+}
+function savePreset() {
+  const name = document.getElementById('preset-name-input').value.trim();
+  if (!name) { alert('Enter a preset name.'); return; }
+  const presets = getPresets();
+  const cfg = getFormValues();
+  const toSave = { ...cfg };
+  delete toSave.clientSecret; // never persist secrets
+  const existing = presets.findIndex(p => p.name === name);
+  if (existing >= 0) presets[existing] = { name, cfg: toSave };
+  else presets.push({ name, cfg: toSave });
+  savePresets(presets);
+  document.getElementById('preset-name-input').value = '';
+  renderPresets();
+  showConfigStatus('success', 'Preset "' + name + '" saved (secret excluded).');
+}
+function loadPreset(name) {
+  const p = getPresets().find(p => p.name === name);
+  if (!p) return;
+  applyFormValues(p.cfg);
+  switchTab('config');
+  showConfigStatus('success', 'Loaded "' + name + '".');
+  document.querySelectorAll('.preset-card').forEach(c => c.classList.toggle('active', c.dataset.name === name));
+}
+function deletePreset(name) {
+  if (!confirm('Delete preset "' + name + '"?')) return;
+  savePresets(getPresets().filter(p => p.name !== name));
+  renderPresets();
+}
+function renderPresets() {
+  const list = document.getElementById('presets-list');
+  const presets = getPresets();
+  if (!presets.length) {
+    list.innerHTML = '<div class="preset-empty"><div class="preset-empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ocean-40)"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>No presets saved yet.<br>Configure and save a preset from the Config tab.</div>';
+    return;
+  }
+  list.innerHTML = presets.map(p => `
+    <div class="preset-card" data-name="${esc(p.name)}" onclick="loadPreset(this.dataset.name)">
+      <span class="preset-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--pool)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+      <div class="preset-body">
+        <div class="preset-name">${esc(p.name)}</div>
+        <div class="preset-issuer">${esc(p.cfg.issuer || '')}</div>
+      </div>
+      <button class="preset-del" title="Delete" onclick="event.stopPropagation();deletePreset(this.closest('.preset-card').dataset.name)">&#10005;</button>
+    </div>`).join('');
+}
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+// ── Status / Progress ─────────────────────────────────────────────────
+function setStatus(type, msg) {
+  const dot = document.getElementById('status-dot');
+  dot.className = type ? 'status-dot ' + type : 'status-dot';
+  document.getElementById('status-label').textContent = msg;
+}
+function updateProgress(n, total, label) {
+  const pct = total ? Math.round(n / total * 100) : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-count').innerHTML = n + ' <span>/ ' + total + '</span>';
+  if (label) document.getElementById('progress-label').textContent = label;
+}
+
+// ── Action registry — avoids injecting raw JS strings into onclick attributes ────
+const _actionRegistry = {};
+let _actionSeq = 0;
+function registerAction(fn) {
+  const id = 'act_' + (++_actionSeq);
+  _actionRegistry[id] = fn;
+  return id;
+}
+function _dispatchAction(id) {
+  const fn = _actionRegistry[id];
+  if (fn) fn();
+}
+
+// ── Step cards ────────────────────────────────────────────────────────
+function buildActionButton(label, fn) {
+  // fn is either a legacy string (evaluated safely by wrapping known calls) or a function
+  const id = registerAction(typeof fn === 'function' ? fn : function() { eval(fn); }); // eslint-disable-line no-eval
+  return `<button class="step-btn" data-action="${esc(id)}">${esc(label)}</button>`;
+}
+
+function addRunningStep(title, detail) {
+  const feed = document.getElementById('steps-feed');
+  const card = document.createElement('div');
+  card.className = 'step-card running';
+  card.innerHTML = `<div class="step-header"><div class="step-title">${esc(title)}</div><div class="step-spinner"></div></div><div class="step-detail">${esc(detail)}</div>`;
+  feed.appendChild(card);
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  return function resolve(newDetail, status, expandable, actions) {
+    card.className = 'step-card ' + (status || 'success');
+    const actionsHtml = (actions || []).map(a => buildActionButton(a.label, a.fn)).join('');
+    card.innerHTML = `
+      <div class="step-header">
+        <div class="step-title">${esc(title)}</div>
+        <div class="step-actions">${actionsHtml}</div>
+      </div>
+      <div class="step-detail">${esc(newDetail)}</div>`;
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+}
+function addStep(title, detail, status, isSub, actions) {
+  const feed = document.getElementById('steps-feed');
+  const card = document.createElement('div');
+  card.className = 'step-card ' + (status || 'success') + (isSub ? ' sub' : '');
+  const actionsHtml = (actions || []).map(a => buildActionButton(a.label, a.fn)).join('');
+  card.innerHTML = `
+    <div class="step-header">
+      <div class="step-title">${esc(title)}</div>
+      <div class="step-actions">${actionsHtml}</div>
+    </div>
+    <div class="step-detail">${esc(detail)}</div>`;
+  feed.appendChild(card);
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  return card;
+}
+function addClaimsTable(title, claims, isSub) {
+  const OIDC_CLAIM_DESCS = {
+    sub:'Subject identifier — unique user ID within this issuer',
+    iss:'Issuer — who issued this token',
+    aud:'Audience — intended recipient(s)',
+    exp:'Expiry — Unix timestamp when token expires',
+    iat:'Issued at — Unix timestamp when token was issued',
+    nbf:'Not before — token not valid before this time',
+    jti:'JWT ID — unique identifier for this token',
+    nonce:'Nonce — replay attack prevention',
+    at_hash:'Access token hash',
+    c_hash:'Code hash',
+    auth_time:'Time of authentication',
+    acr:'Authentication context class reference',
+    amr:'Authentication methods references (MFA factors used)',
+    azp:'Authorized party (client that requested token)',
+    sid:'Session ID',
+    email:'User email address',
+    email_verified:'Whether email address has been verified',
+    name:'Full display name',
+    given_name:'First / given name',
+    family_name:'Last / family name',
+    middle_name:'Middle name',
+    nickname:'Casual name',
+    preferred_username:'Preferred username or login',
+    profile:'URL of profile page',
+    picture:'URL of profile picture',
+    website:'URL of user website',
+    gender:'Gender',
+    birthdate:'Date of birth',
+    zoneinfo:'Time zone',
+    locale:'Locale / language',
+    phone_number:'Phone number',
+    phone_number_verified:'Whether phone number is verified',
+    address:'Physical mailing address',
+    updated_at:'Time profile was last updated',
+    rat:'Request authentication time (JumpCloud)',
+    jc_org:'JumpCloud organisation ID (JumpCloud custom claim)',
+    authorizations:'JumpCloud authorizations / roles claim (configured via User Attribute Mappings in SSO app)'
+  };
+  const feed = document.getElementById('steps-feed');
+  const card = document.createElement('div');
+  card.className = 'step-card success' + (isSub ? ' sub' : '');
+  const rows = Object.entries(claims).map(([k, v]) => {
+    const desc = OIDC_CLAIM_DESCS[k] || 'Custom claim';
+    const valStr = typeof v === 'object' ? JSON.stringify(v) : String(v);
+    const isCustom = !OIDC_CLAIM_DESCS[k];
+    const rowClass = isCustom ? 'claim-highlight' : '';
+    return `<tr class="${rowClass}"><td class="claim-key">${esc(k)}</td><td class="claim-val">${esc(valStr)}</td><td class="claim-desc">${esc(desc)}</td></tr>`;
+  }).join('');
+  card.innerHTML = `
+    <div class="step-header">
+      <div class="step-title">${esc(title)}</div>
+      <div class="step-actions">
+        <button class="step-btn" onclick="copyClaimsFromCard(this)">Copy JSON</button>
+      </div>
+    </div>
+    <table class="claims-table">
+      <thead><tr><th>Claim</th><th>Value</th><th>Description</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  card._claims = claims;
+  feed.appendChild(card);
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  return card;
+}
+function copyClaimsFromCard(btn) {
+  const card = btn.closest('.step-card');
+  if (!card._claims) return;
+  navigator.clipboard.writeText(JSON.stringify(card._claims, null, 2)).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy JSON'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+// ── JSON pane ─────────────────────────────────────────────────────────
+let globalResults = {};
+let currentJsonTab = 'full';
+function updateJson() {
+  const out = document.getElementById('json-output');
+  let data;
+  if      (currentJsonTab === 'idtoken')    data = globalResults.idTokenClaims  || {};
+  else if (currentJsonTab === 'userinfo')   data = globalResults.userinfo        || {};
+  else if (currentJsonTab === 'access')     data = globalResults.accessTokenDecoded || { note: 'Access token is Opaque (default). Switch to JWT in JumpCloud SSO app Advanced Settings to see decoded claims.' };
+  else if (currentJsonTab === 'introspect') data = globalResults.introspectResult || { note: 'Run introspection via the Introspect Token button above after completing verification.' };
+  else                                      data = globalResults;
+  out.value = JSON.stringify(data, null, 2);
+}
+function switchJsonTab(name) {
+  currentJsonTab = name;
+  ['full','idtoken','userinfo','access','introspect'].forEach(t => {
+    const el = document.getElementById('jtab-' + t);
+    if (el) el.classList.toggle('active', t === name);
+  });
+  updateJson();
+}
+function copyJson() {
+  navigator.clipboard.writeText(document.getElementById('json-output').value).then(() => {
+    const btn = document.querySelector('.json-copy');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1500);
+  });
+}
+function clearSensitiveData() {
+  // Wipe raw token strings from in-memory state so they don't linger after a test run is cleared
+  const sensitiveKeys = ['idTokenRaw','accessTokenRaw','refreshTokenRaw','refreshedIdTokenRaw','endSessionUrl'];
+  sensitiveKeys.forEach(k => { if (globalResults[k]) globalResults[k] = '[cleared]'; });
+}
+function clearAll() {
+  clearSensitiveData();
+  document.getElementById('steps-feed').innerHTML = '';
+  // Clear action registry
+  Object.keys(_actionRegistry).forEach(k => delete _actionRegistry[k]);
+  _actionSeq = 0;
+  globalResults = {};
+  diffRunA = null; diffRunB = null;
+  updateJson();
+  updateProgress(0, 14, 'Configure and click Run Verification to begin.');
+  setStatus('', 'Idle');
+  document.getElementById('run-btn').disabled = false;
+  // Remove inserted panels
+  ['health-panel','scope-analyser','token-timeline','discovery-inspector','diff-panel'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
+  // Disable action buttons
+  const bi = document.getElementById('btn-introspect');
+  const br = document.getElementById('btn-revoke');
+  if (bi) bi.disabled = true;
+  if (br) br.disabled = true;
+}
+
+// ── PKCE ──────────────────────────────────────────────────────────────
+async function generatePKCE() {
+  const arr = new Uint8Array(48);
+  crypto.getRandomValues(arr);
+  const verifier = btoa(String.fromCharCode(...arr)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+  const data = new TextEncoder().encode(verifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  const challenge = btoa(String.fromCharCode(...new Uint8Array(digest))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+  return { verifier, challenge };
+}
+
+// ── JWT decode (no verification) ─────────────────────────────────────
+function decodeJwt(token) {
+  const parts = token.split('.');
+  if (parts.length !== 3) throw new Error('Not a valid JWT (expected 3 parts, got ' + parts.length + ')');
+  function dec(s) {
+    s = s.replace(/-/g,'+').replace(/_/g,'/');
+    while (s.length % 4) s += '=';
+    return JSON.parse(decodeURIComponent(atob(s).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+  }
+  return { header: dec(parts[0]), payload: dec(parts[1]), rawParts: parts };
+}
+
+// ── Token request ─────────────────────────────────────────────────────
+async function buildTokenRequest(endpoint, body) {
+  const cfg = getFormValues();
+  const params = new URLSearchParams(body);
+  const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+  if (cfg.authType === 'client_secret_basic') {
+    headers['Authorization'] = 'Basic ' + btoa(cfg.clientId + ':' + cfg.clientSecret);
+  } else {
+    params.set('client_id', cfg.clientId);
+    if (cfg.authType === 'client_secret_post') params.set('client_secret', cfg.clientSecret);
+  }
+  return fetch(endpoint, { method: 'POST', headers, body: params.toString() });
+}
+
+// ── State / Nonce ─────────────────────────────────────────────────────
+let currentState   = '';
+let currentNonce   = '';
+let pkceVerifier   = '';
+let redirectResolve = null;
+let redirectReject  = null;
+
+// ── Event delegation for step action buttons ──────────────────────────
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('button[data-action]');
+  if (btn) _dispatchAction(btn.dataset.action);
+});
+
+// ── Click-outside to close dropdowns ─────────────────────────────────
+document.addEventListener('click', function(e) {
+  const sd = document.getElementById('scope-dropdown');
+  const st = document.getElementById('scope-trigger');
+  if (sd && st && !st.contains(e.target) && !sd.contains(e.target)) {
+    sd.classList.remove('open'); st.classList.remove('open');
+    document.getElementById('scope-chevron').classList.remove('flipped');
+  }
+  const id = document.getElementById('issuer-dropdown');
+  const ic = document.getElementById('issuer-combo');
+  if (id && ic && !ic.contains(e.target)) closeIssuerDropdown();
+});
+
+// ── Pre-Check ─────────────────────────────────────────────────────────
+async function runPreCheck() {
+  const cfg  = getFormValues();
+  const errs = validateFields(cfg);
+  const panel = document.getElementById('precheck-panel');
+  const items = document.getElementById('precheck-items');
+  const btn   = document.getElementById('precheck-btn');
+  panel.style.display = 'block'; items.innerHTML = ''; btn.disabled = true;
+
+  function addPI(label, detail, status) {
+    const item = document.createElement('div');
+    item.className = 'precheck-item ' + status;
+    item.innerHTML = `<div class="precheck-dot"></div><div class="precheck-body"><div class="precheck-label">${esc(label)}</div>${detail ? `<div class="precheck-detail">${esc(detail)}</div>` : ''}</div>`;
+    items.appendChild(item);
+  }
+  function addRunPI(label) {
+    addPI(label, 'Checking...', 'running');
+    const item = items.lastChild;
+    return function(detail, status) {
+      item.className = 'precheck-item ' + status;
+      item.querySelector('.precheck-label').textContent = label;
+      item.querySelector('.precheck-detail').textContent = detail;
+    };
+  }
+
+  const c1 = addRunPI('Config fields');
+  await new Promise(r => setTimeout(r, 60));
+  if (errs.length) { c1('Missing: ' + errs.join(', '), 'error'); btn.disabled = false; return; }
+  c1('All required fields present.', 'success');
+
+  const discoveryUrl = cfg.issuer.replace(/\/$/, '') + '/.well-known/openid-configuration';
+  const c2 = addRunPI('Discovery endpoint');
+  let discovery;
+  try {
+    const r = await fetch(discoveryUrl);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    discovery = await r.json();
+    const normDoc = (discovery.issuer || '').replace(/\/$/, '');
+    const normCfg = cfg.issuer.replace(/\/$/, '');
+    if (normDoc !== normCfg) throw new Error('Issuer mismatch. Discovery: ' + discovery.issuer + ' | Config: ' + cfg.issuer);
+    const missing = ['authorization_endpoint','token_endpoint','jwks_uri','userinfo_endpoint'].filter(k => !discovery[k]);
+    if (missing.length) throw new Error('Missing endpoints: ' + missing.join(', '));
+    c2('Reachable. All required endpoints present.', 'success');
+  } catch(e) { c2(e.message, 'error'); btn.disabled = false; return; }
+
+  const c3 = addRunPI('JWKS endpoint');
+  try {
+    const r = await fetch(discovery.jwks_uri);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const jwks = await r.json();
+    if (!jwks.keys || !jwks.keys.length) throw new Error('No signing keys returned');
+    const algs = [...new Set(jwks.keys.map(k => k.alg || k.kty).filter(Boolean))].join(', ');
+    c3(jwks.keys.length + ' key(s). Algorithms: ' + algs, 'success');
+  } catch(e) { c3(e.message, 'error'); btn.disabled = false; return; }
+
+  const c4 = addRunPI('Redirect URI format');
+  await new Promise(r => setTimeout(r, 40));
+  try {
+    const u = new URL(cfg.redirectUri);
+    const local = u.hostname === 'localhost' || u.hostname === '127.0.0.1';
+    if (!local && u.protocol !== 'https:') throw new Error('Non-localhost redirect URI must use HTTPS');
+    c4((local ? 'Localhost' : 'HTTPS') + ' URI — valid.', 'success');
+  } catch(e) { c4(e.message, e instanceof TypeError ? 'error' : 'warning'); }
+
+  const c5 = addRunPI('Auth type consistency');
+  await new Promise(r => setTimeout(r, 40));
+  if (cfg.authType === 'none_pkce' && cfg.clientSecret)     c5('PKCE mode but secret present — secret will be ignored.', 'warning');
+  else if (cfg.authType !== 'none_pkce' && !cfg.clientSecret) c5('Secret empty for confidential client — token exchange will fail.', 'error');
+  else c5('Consistent. ' + (cfg.authType === 'none_pkce' ? 'PKCE / public client.' : 'Secret present for ' + cfg.authType + '.'), 'success');
+
+  if (cfg.authType === 'none_pkce') {
+    const c6 = addRunPI('PKCE S256 support');
+    await new Promise(r => setTimeout(r, 40));
+    const methods = discovery.code_challenge_methods_supported || [];
+    if (methods.includes('S256'))  c6('S256 advertised in discovery.', 'success');
+    else if (methods.length)       c6('S256 not listed. Supported: ' + methods.join(', '), 'warning');
+    else                           c6('code_challenge_methods_supported not in discovery. S256 may still work.', 'warning');
+  }
+
+  const c7 = addRunPI('Refresh token scope');
+  await new Promise(r => setTimeout(r, 40));
+  const hasOfflineAccess = cfg.scope.includes('offline_access');
+  if (hasOfflineAccess)
+    c7('offline_access in scope. Refresh token will be issued if Refresh Token grant is enabled in the JumpCloud SSO app.', 'success');
+  else
+    c7('offline_access not in scope. Refresh token will not be returned — enable it in Scopes if refresh is needed, and enable Refresh Token grant in JumpCloud SSO app Advanced Settings.', 'warning');
+
+  btn.disabled = false;
+}
+
+// ── Redirect dialog promise ───────────────────────────────────────────
+let currentAuthUrl = '';
+function dialogOpenAuthUrl() {
+  if (currentAuthUrl) window.open(currentAuthUrl, '_blank');
+}
+function waitForRedirect() {
+  return new Promise((resolve, reject) => {
+    redirectResolve = resolve;
+    redirectReject  = reject;
+    document.getElementById('redirect-url-input').value = '';
+    document.getElementById('redirect-dialog').style.display = 'flex';
+    document.getElementById('redirect-url-input').focus();
+    currentAuthUrl = globalResults.authUrl || '';
+    const btn = document.getElementById('dialog-open-auth-btn');
+    if (btn) btn.style.display = currentAuthUrl ? '' : 'none';
+  });
+}
+function submitRedirectUrl() {
+  const val = document.getElementById('redirect-url-input').value.trim();
+  if (!val) return;
+  document.getElementById('redirect-dialog').style.display = 'none';
+  // Check for error response before passing to the verification flow
+  try {
+    const u = new URL(val);
+    const errCode = u.searchParams.get('error');
+    const errDesc = u.searchParams.get('error_description');
+    if (errCode) {
+      const hints = {
+        'access_denied':            'User denied consent, or the user is not assigned to this SSO application in JumpCloud.',
+        'invalid_client':           'Client ID or Secret is incorrect. Verify them in the JumpCloud SSO app OAuth tab.',
+        'unauthorized_client':      'The grant type used is not enabled. Check Grant Types in JumpCloud SSO app Advanced Settings.',
+        'invalid_scope':            'One or more scopes are not allowed. Review the allowed scopes in the JumpCloud SSO app.',
+        'login_required':           'Silent auth failed — no active session. Remove prompt=none if set.',
+        'interaction_required':     'MFA or consent is required but the prompt parameter prevented it.',
+        'temporarily_unavailable':  'JumpCloud is temporarily unavailable. Retry in a moment.',
+      };
+      const hint = hints[errCode] || 'Check the JumpCloud SSO app configuration and user assignment.';
+      if (redirectReject) { redirectReject(new Error('OAuth error: ' + errCode + (errDesc ? ' — ' + errDesc : '') + '. ' + hint)); redirectReject = null; }
+      return;
+    }
+  } catch(e2) { /* not a URL — let the normal flow handle it */ }
+  if (redirectResolve) { redirectResolve(val); redirectResolve = null; }
+}
+function cancelTest() {
+  document.getElementById('redirect-dialog').style.display = 'none';
+  if (redirectReject) { redirectReject(new Error('Cancelled by user')); redirectReject = null; }
+}
+
+// ── Copy token helper ─────────────────────────────────────────────────
+function copyToken(tokenKey) {
+  const val = globalResults[tokenKey];
+  if (!val) return;
+  navigator.clipboard.writeText(val).then(() => {
+    const btns = document.querySelectorAll('.step-btn');
+    btns.forEach(b => {
+      if (b.textContent.includes('Copy')) {
+        const orig = b.textContent;
+        b.textContent = 'Copied!'; b.classList.add('copied');
+        setTimeout(() => { b.textContent = orig; b.classList.remove('copied'); }, 1500);
+      }
+    });
+  });
+}
+function openJwtIo(tokenKey) {
+  const val = globalResults[tokenKey];
+  if (!val) return;
+  // Warn before sending a raw token (which may contain PII) to a third-party site.
+  if (!confirm('This will send your raw ID token to jwt.io (a third-party site). The token contains user identity claims.\n\nOnly proceed on a personal test account. Do not do this with a production user token.\n\nContinue?')) return;
+  window.open('https://jwt.io/#debugger-io?token=' + encodeURIComponent(val), '_blank');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 1: HEALTH SCORE + REPORT EXPORT
+// ══════════════════════════════════════════════════════════════════
+
+function computeHealthScore() {
+  const r = globalResults;
+  const cats = {
+    'Discovery':    { max: 15, score: 0, items: [] },
+    'Token Security': { max: 25, score: 0, items: [] },
+    'Claims':       { max: 20, score: 0, items: [] },
+    'Refresh':      { max: 20, score: 0, items: [] },
+    'MFA & Logout': { max: 20, score: 0, items: [] },
+  };
+
+  // Discovery (15)
+  if (r.discovery) {
+    cats['Discovery'].score += 8; cats['Discovery'].items.push({ label: 'Discovery document OK', ok: true });
+    if (r.jwks && r.jwks.keyCount > 0) { cats['Discovery'].score += 4; cats['Discovery'].items.push({ label: 'JWKS keys present (' + r.jwks.keyCount + ')', ok: true }); }
+    else cats['Discovery'].items.push({ label: 'JWKS missing or empty', ok: false });
+    if (r.discovery.revocation_endpoint)    { cats['Discovery'].score += 2; cats['Discovery'].items.push({ label: 'Revocation endpoint', ok: true }); }
+    else cats['Discovery'].items.push({ label: 'No revocation endpoint', ok: null });
+    if (r.discovery.introspection_endpoint) { cats['Discovery'].score += 1; cats['Discovery'].items.push({ label: 'Introspection endpoint', ok: true }); }
+  } else { cats['Discovery'].items.push({ label: 'Discovery failed', ok: false }); }
+
+  // Token Security (25)
+  if (r.idTokenClaims) {
+    cats['Token Security'].score += 8; cats['Token Security'].items.push({ label: 'ID Token received and decoded', ok: true });
+    const alg = r.idTokenHeader && r.idTokenHeader.alg;
+    if (['RS256','ES256','RS384','ES384'].includes(alg)) { cats['Token Security'].score += 6; cats['Token Security'].items.push({ label: 'Strong signing alg: ' + alg, ok: true }); }
+    else cats['Token Security'].items.push({ label: 'Weak or unknown alg: ' + alg, ok: false });
+    if (Math.abs(r.clockSkewSeconds || 0) <= 30) { cats['Token Security'].score += 5; cats['Token Security'].items.push({ label: 'Clock skew <30s', ok: true }); }
+    else cats['Token Security'].items.push({ label: 'Clock skew ' + Math.abs(r.clockSkewSeconds || 0) + 's', ok: null });
+    if (r.tokenRotationEnforced === true)  { cats['Token Security'].score += 6; cats['Token Security'].items.push({ label: 'Refresh token rotation enforced', ok: true }); }
+    else if (r.tokenRotationEnforced === false) cats['Token Security'].items.push({ label: 'Token rotation NOT enforced', ok: false });
+    else cats['Token Security'].items.push({ label: 'Rotation not tested (no refresh)', ok: null });
+  } else { cats['Token Security'].items.push({ label: 'No ID Token', ok: false }); }
+
+  // Claims (20)
+  if (r.idTokenClaims) {
+    const p = r.idTokenClaims;
+    if (p.email) { cats['Claims'].score += 5; cats['Claims'].items.push({ label: 'email claim present', ok: true }); }
+    else cats['Claims'].items.push({ label: 'email missing', ok: false });
+    if (p.email_verified === true) { cats['Claims'].score += 4; cats['Claims'].items.push({ label: 'email_verified=true', ok: true }); }
+    else cats['Claims'].items.push({ label: 'email_verified not true', ok: null });
+    if (p.name || p.given_name) { cats['Claims'].score += 4; cats['Claims'].items.push({ label: 'Name claim present', ok: true }); }
+    else cats['Claims'].items.push({ label: 'Name claim missing', ok: null });
+    if (r.customClaims && Object.keys(r.customClaims).length) { cats['Claims'].score += 4; cats['Claims'].items.push({ label: Object.keys(r.customClaims).length + ' custom claim(s)', ok: true }); }
+    else cats['Claims'].items.push({ label: 'No custom claims', ok: null });
+    if (r.userinfo) { cats['Claims'].score += 3; cats['Claims'].items.push({ label: 'UserInfo endpoint OK', ok: true }); }
+    else cats['Claims'].items.push({ label: 'UserInfo not reached', ok: false });
+  }
+
+  // Refresh (20)
+  if (r.refreshResponse) {
+    cats['Refresh'].score += 10; cats['Refresh'].items.push({ label: 'Refresh token cycle OK', ok: true });
+    if (r.userinfoRefreshed) { cats['Refresh'].score += 5; cats['Refresh'].items.push({ label: 'UserInfo OK after refresh', ok: true }); }
+    if (r.tokenRotationEnforced) { cats['Refresh'].score += 5; cats['Refresh'].items.push({ label: 'Old token rejected after rotation', ok: true }); }
+    else cats['Refresh'].items.push({ label: 'Old token reuse not blocked', ok: false });
+  } else if (globalResults.refreshResponse !== undefined) {
+    cats['Refresh'].items.push({ label: 'No refresh token (offline_access scope needed)', ok: false });
+  } else { cats['Refresh'].items.push({ label: 'Refresh not tested', ok: null }); }
+
+  // MFA & Logout (20)
+  if (r.idTokenClaims) {
+    const amr = r.idTokenClaims.amr;
+    if (Array.isArray(amr) && amr.length) { cats['MFA & Logout'].score += 12; cats['MFA & Logout'].items.push({ label: 'MFA verified (amr: ' + amr.join(',') + ')', ok: true }); }
+    else { cats['MFA & Logout'].score += 0; cats['MFA & Logout'].items.push({ label: 'No MFA (amr absent/empty)', ok: null }); }
+  }
+  if (r.endSessionUrl) { cats['MFA & Logout'].score += 8; cats['MFA & Logout'].items.push({ label: 'End session endpoint OK', ok: true }); }
+  else cats['MFA & Logout'].items.push({ label: 'No end_session_endpoint', ok: null });
+
+  const total = Object.values(cats).reduce((s, c) => s + c.score, 0);
+  const maxTotal = Object.values(cats).reduce((s, c) => s + c.max, 0);
+  return { total, maxTotal, cats };
+}
+
+function renderHealthPanel() {
+  const existing = document.getElementById('health-panel');
+  if (existing) existing.remove();
+
+  const { total, maxTotal, cats } = computeHealthScore();
+  const pct = Math.round((total / maxTotal) * 100);
+  const grade = pct >= 90 ? 'A' : pct >= 75 ? 'B' : pct >= 60 ? 'C' : pct >= 45 ? 'D' : 'F';
+  const gradeClass = 'grade-' + grade.toLowerCase();
+
+  const FULL = 2 * Math.PI * 35; // circumference for r=35
+  const offset = FULL * (1 - total / maxTotal);
+
+  const panel = document.createElement('div');
+  panel.id = 'health-panel';
+  panel.className = 'health-panel';
+  panel.innerHTML = `
+    <div class="health-header">
+      <span class="health-header-title">OIDC Readiness Score</span>
+      <button class="health-export-btn" onclick="exportReport()">Export Report</button>
+    </div>
+    <div class="health-body">
+      <div class="health-score-ring">
+        <svg width="88" height="88" viewBox="0 0 88 88">
+          <circle class="health-ring-bg" cx="44" cy="44" r="35"/>
+          <circle class="health-ring-fill ${gradeClass}" cx="44" cy="44" r="35"
+            stroke-dasharray="${FULL}" stroke-dashoffset="${offset}"/>
+        </svg>
+        <div class="health-score-label">
+          <span class="health-score-num">${total}</span>
+          <span class="health-score-denom">/ ${maxTotal}</span>
+        </div>
+      </div>
+      <div class="health-categories">
+        ${Object.entries(cats).map(([name, cat]) => {
+          const catPct = Math.round((cat.score / cat.max) * 100);
+          const barClass = catPct >= 75 ? 'ok' : catPct >= 40 ? 'warn' : 'err';
+          return `<div class="health-cat">
+            <span class="health-cat-label">${name}</span>
+            <div class="health-cat-bar-track"><div class="health-cat-bar-fill ${barClass}" style="width:${catPct}%"></div></div>
+            <span class="health-cat-score">${cat.score}/${cat.max}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="health-pills">
+      ${Object.values(cats).flatMap(c => c.items).map(item => {
+        const cls = item.ok === true ? 'pass' : item.ok === false ? 'fail' : 'warn';
+        return `<span class="health-pill ${cls}">${item.label}</span>`;
+      }).join('')}
+    </div>`;
+
+  const feed = document.getElementById('steps-feed');
+  feed.parentElement.insertBefore(panel, feed);
+}
+
+function exportReport() {
+  const { total, maxTotal, cats } = computeHealthScore();
+  const pct = Math.round((total / maxTotal) * 100);
+  const r = globalResults;
+  const ts = new Date().toLocaleString();
+  const cfg = r.config || {};
+
+  const catRows = Object.entries(cats).map(([name, cat]) => {
+    const catPct = Math.round((cat.score / cat.max) * 100);
+    const color = catPct >= 75 ? '#1A9B6B' : catPct >= 40 ? '#FFA800' : '#B54824';
+    const itemList = cat.items.map(i => {
+      const ic = i.ok === true ? '#1A9B6B' : i.ok === false ? '#B54824' : '#996600';
+      const sym = i.ok === true ? '&#10003;' : i.ok === false ? '&#10007;' : '&#9646;';
+      return `<li style="color:${ic};margin:2px 0;">${sym} ${i.label}</li>`;
+    }).join('');
+    return `<tr>
+      <td style="padding:8px 12px;font-weight:700;border-bottom:1px solid #eee;">${name}</td>
+      <td style="padding:8px 12px;border-bottom:1px solid #eee;"><span style="color:${color};font-weight:700;">${cat.score}/${cat.max}</span></td>
+      <td style="padding:8px 12px;border-bottom:1px solid #eee;"><ul style="list-style:none;padding:0;margin:0;font-size:12px;">${itemList}</ul></td>
+    </tr>`;
+  }).join('');
+
+  const claimsTable = r.idTokenClaims ? Object.entries(r.idTokenClaims).map(([k, v]) =>
+    `<tr><td style="padding:5px 10px;font-family:monospace;font-size:11px;border-bottom:1px solid #f0f0f0;color:#002B49;">${k}</td>
+     <td style="padding:5px 10px;font-size:11px;border-bottom:1px solid #f0f0f0;word-break:break-all;">${JSON.stringify(v)}</td></tr>`
+  ).join('') : '<tr><td colspan="2" style="padding:8px;color:#999;">No ID token claims</td></tr>';
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+<title>JumpCloud OIDC POC Report — ${cfg.issuer || ''}</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f7f7fb; color: #002B49; margin: 0; padding: 0; }
+  .page { max-width: 900px; margin: 0 auto; padding: 40px 32px; }
+  .header { background: #001E36; color: #fff; padding: 28px 32px; border-radius: 10px 10px 0 0; margin-bottom: 0; }
+  .header h1 { font-size: 20px; margin: 0 0 4px; }
+  .header .sub { font-size: 12px; opacity: .55; }
+  .score-bar { background: #002B49; padding: 18px 32px; display: flex; align-items: center; gap: 24px; }
+  .score-num { font-size: 42px; font-weight: 800; color: #41C8C3; line-height: 1; }
+  .score-label { font-size: 12px; color: rgba(255,255,255,.5); }
+  .score-pct { font-size: 22px; font-weight: 700; color: rgba(255,255,255,.7); }
+  .section { background: #fff; border: 1px solid #e0e6ea; border-radius: 8px; margin-top: 20px; overflow: hidden; }
+  .section-head { background: #f0f4f7; padding: 10px 16px; font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: #5C7A8E; border-bottom: 1px solid #e0e6ea; }
+  table { width: 100%; border-collapse: collapse; }
+  th { padding: 8px 12px; font-size: 11px; font-weight: 700; text-align: left; color: #5C7A8E; background: #f7f9fb; border-bottom: 1px solid #e0e6ea; }
+  .meta { background: #fff; border: 1px solid #e0e6ea; border-radius: 8px; margin-top: 20px; padding: 16px 20px; font-size: 12px; }
+  .meta-row { display: flex; gap: 8px; margin-bottom: 5px; }
+  .meta-key { font-weight: 700; color: #5C7A8E; min-width: 130px; }
+  .footer { margin-top: 28px; font-size: 10px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 16px; }
+</style></head><body>
+<div class="page">
+  <div class="header">
+    <h1>JumpCloud OIDC POC Verification Report</h1>
+    <div class="sub">Generated: ${ts}</div>
+  </div>
+  <div class="score-bar">
+    <div><div class="score-num">${total}</div><div class="score-label">of ${maxTotal} points</div></div>
+    <div><div class="score-pct">${pct}%</div><div class="score-label">OIDC Readiness</div></div>
+  </div>
+  <div class="meta">
+    <div class="meta-row"><span class="meta-key">Issuer:</span><span>${cfg.issuer || 'N/A'}</span></div>
+    <div class="meta-row"><span class="meta-key">Client ID:</span><span>${cfg.clientId ? cfg.clientId.slice(0,-8).replace(/./g,'*') + cfg.clientId.slice(-8) : 'N/A'}</span></div>
+    <div class="meta-row"><span class="meta-key">Auth Method:</span><span>${cfg.authType || 'N/A'}</span></div>
+    <div class="meta-row"><span class="meta-key">Scopes:</span><span>${cfg.scope || 'N/A'}</span></div>
+    <div class="meta-row"><span class="meta-key">Started:</span><span>${r.startedAt || 'N/A'}</span></div>
+    <div class="meta-row"><span class="meta-key">Completed:</span><span>${r.completedAt || 'N/A'}</span></div>
+  </div>
+  <div class="section">
+    <div class="section-head">Readiness by Category</div>
+    <table><thead><tr><th>Category</th><th>Score</th><th>Detail</th></tr></thead><tbody>${catRows}</tbody></table>
+  </div>
+  <div class="section">
+    <div class="section-head">ID Token Claims</div>
+    <table><thead><tr><th>Claim</th><th>Value</th></tr></thead><tbody>${claimsTable}</tbody></table>
+  </div>
+  ${r.userinfo ? `<div class="section">
+    <div class="section-head">UserInfo Claims</div>
+    <table><thead><tr><th>Claim</th><th>Value</th></tr></thead><tbody>
+    ${Object.entries(r.userinfo).map(([k,v]) => `<tr><td style="padding:5px 10px;font-family:monospace;font-size:11px;border-bottom:1px solid #f0f0f0;color:#002B49;">${k}</td><td style="padding:5px 10px;font-size:11px;border-bottom:1px solid #f0f0f0;word-break:break-all;">${JSON.stringify(v)}</td></tr>`).join('')}
+    </tbody></table>
+  </div>` : ''}
+  <div class="footer">Generated by JumpCloud Power OIDC Verifier v3.0 &mdash; For internal SE use only. Do not distribute externally.</div>
+</div></body></html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'jc-oidc-poc-report-' + new Date().toISOString().slice(0,10) + '.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 2: INTROSPECTION + REVOCATION ENDPOINTS
+// ══════════════════════════════════════════════════════════════════
+
+async function runIntrospect() {
+  const btn = document.getElementById('btn-introspect');
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Introspecting...';
+
+  try {
+    const discovery = globalResults.discovery;
+    if (!discovery || !discovery.introspection_endpoint) {
+      addStep('Introspection', 'introspection_endpoint not advertised in discovery document. JumpCloud may not expose this for all SSO app configurations.', 'warning', false);
+      return;
+    }
+    const cfg = getFormValues();
+    const endpoint = discovery.introspection_endpoint;
+    const token = globalResults.accessTokenRaw;
+    if (!token || token === '[cleared]') { addStep('Introspection', 'Access token not available — run verification first.', 'error', false); return; }
+
+    const body = new URLSearchParams({ token, token_type_hint: 'access_token' });
+    let resp;
+    if (cfg.authType === 'client_secret_basic') {
+      resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + btoa(cfg.clientId + ':' + cfg.clientSecret) }, body: body.toString() });
+    } else {
+      body.set('client_id', cfg.clientId);
+      if (cfg.clientSecret) body.set('client_secret', cfg.clientSecret);
+      resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+    }
+    const result = await resp.json();
+    globalResults.introspectResult = result;
+    updateJson();
+    switchJsonTab('introspect');
+
+    if (!resp.ok) { addStep('Section 14: Introspection', 'HTTP ' + resp.status + ': ' + JSON.stringify(result), 'error', false); return; }
+    const active = result.active;
+    const subMatch = result.sub && globalResults.idTokenClaims && result.sub === globalResults.idTokenClaims.sub;
+    const notes = [
+      'active=' + active,
+      result.sub ? 'sub=' + result.sub : '',
+      result.scope ? 'scope=' + result.scope : '',
+      result.token_type ? 'token_type=' + result.token_type : '',
+      subMatch ? 'sub matches ID Token.' : (result.sub ? 'WARNING: sub mismatch with ID Token.' : '')
+    ].filter(Boolean).join(' | ');
+    addStep('Section 14: Token Introspection', notes, active && subMatch !== false ? 'success' : 'warning', false);
+  } catch(e) {
+    addStep('Section 14: Introspection', 'Error: ' + e.message, 'error', false);
+  } finally {
+    btn.disabled = false; btn.textContent = orig;
+  }
+}
+
+async function runRevoke() {
+  const btn = document.getElementById('btn-revoke');
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Revoking...';
+
+  try {
+    const discovery = globalResults.discovery;
+    if (!discovery || !discovery.revocation_endpoint) {
+      addStep('Revocation', 'revocation_endpoint not advertised in discovery document.', 'warning', false);
+      return;
+    }
+    const cfg = getFormValues();
+    const endpoint = discovery.revocation_endpoint;
+    const token = globalResults.accessTokenRaw;
+    if (!token || token === '[cleared]') { addStep('Revocation', 'Access token not available.', 'error', false); return; }
+
+    const body = new URLSearchParams({ token, token_type_hint: 'access_token' });
+    let resp;
+    if (cfg.authType === 'client_secret_basic') {
+      resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + btoa(cfg.clientId + ':' + cfg.clientSecret) }, body: body.toString() });
+    } else {
+      body.set('client_id', cfg.clientId);
+      if (cfg.clientSecret) body.set('client_secret', cfg.clientSecret);
+      resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+    }
+
+    if (resp.ok || resp.status === 200) {
+      addStep('Section 15: Token Revocation', 'Access token revocation request accepted (HTTP ' + resp.status + '). Verifying by calling UserInfo...', 'success', false);
+      // Verify: UserInfo should now return 401
+      const uiResp = await fetch(globalResults.discovery.userinfo_endpoint, { headers: { Authorization: 'Bearer ' + token } });
+      if (uiResp.status === 401) {
+        addStep('Section 15a: Post-Revocation UserInfo', 'UserInfo correctly returned 401 after revocation. Token is confirmed invalidated.', 'success', false);
+        globalResults.revocationVerified = true;
+      } else {
+        addStep('Section 15a: Post-Revocation UserInfo', 'UserInfo returned HTTP ' + uiResp.status + ' after revocation — token may still be active. JumpCloud may use eventual consistency for revocation.', 'warning', false);
+        globalResults.revocationVerified = false;
+      }
+    } else {
+      const body2 = await resp.text();
+      addStep('Section 15: Token Revocation', 'HTTP ' + resp.status + ': ' + body2, 'error', false);
+    }
+    updateJson();
+  } catch(e) {
+    addStep('Section 15: Revocation', 'Error: ' + e.message, 'error', false);
+  } finally {
+    btn.disabled = false; btn.textContent = orig;
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 3: SCOPE COVERAGE ANALYSER
+// ══════════════════════════════════════════════════════════════════
+
+const SCOPE_CLAIM_MAP = [
+  // [scope, claim, description, jcNote]
+  ['openid',  'sub',               'Subject identifier',                      null],
+  ['openid',  'iss',               'Issuer URL',                              null],
+  ['openid',  'aud',               'Audience (client_id)',                     null],
+  ['openid',  'exp',               'Expiry timestamp',                        null],
+  ['openid',  'iat',               'Issued-at timestamp',                     null],
+  ['email',   'email',             'Email address',                           'Requires email attribute in JumpCloud user profile'],
+  ['email',   'email_verified',    'Email verification status',               null],
+  ['profile', 'name',              'Full name',                               'Map Display Name in Attribute Mapping'],
+  ['profile', 'given_name',        'First name',                              'Map firstname field'],
+  ['profile', 'family_name',       'Last name',                               'Map lastname field'],
+  ['profile', 'preferred_username','Username / UPN',                          'Maps to JumpCloud username by default'],
+  ['profile', 'picture',           'Profile photo URL',                       'Requires photo attribute — not set by default'],
+  ['address', 'address',           'Structured address object',               'Requires address fields in JumpCloud user profile'],
+  ['phone',   'phone_number',      'Phone number',                            'Requires phone_number attribute mapping'],
+  ['offline_access', null,         'Enables refresh_token in token response', 'Also enable Refresh Token grant in SSO app'],
+];
+
+function renderScopeAnalyser() {
+  const existing = document.getElementById('scope-analyser');
+  if (existing) existing.remove();
+
+  const requestedScope = (globalResults.config && globalResults.config.scope) || '';
+  const claims = globalResults.idTokenClaims || {};
+  const hasRefresh = !!globalResults.refreshResponse;
+  const scopes = requestedScope.split(/\s+/);
+
+  const rows = SCOPE_CLAIM_MAP.map(([scope, claim, desc, jcNote]) => {
+    if (!scopes.includes(scope)) return null; // scope not requested
+    let status, statusLabel;
+    if (claim === null) {
+      // offline_access — check refresh token presence
+      status = hasRefresh ? 'ok' : 'miss';
+      statusLabel = hasRefresh ? 'Present' : 'Missing';
+    } else {
+      status = (claims[claim] !== undefined) ? 'ok' : 'miss';
+      statusLabel = (claims[claim] !== undefined) ? 'Present' : 'Missing';
+    }
+    const valPreview = claim && claims[claim] !== undefined ? JSON.stringify(claims[claim]).slice(0, 40) : '';
+    return { scope, claim: claim || 'refresh_token', desc, jcNote, status, statusLabel, valPreview };
+  }).filter(Boolean);
+
+  if (!rows.length) return;
+
+  const div = document.createElement('div');
+  div.id = 'scope-analyser';
+  div.className = 'scope-analyser';
+
+  const missing = rows.filter(r => r.status === 'miss').length;
+  div.innerHTML = `
+    <div class="scope-analyser-head">
+      <span class="scope-analyser-title">Scope Coverage Analyser</span>
+      <span style="font-size:9.5px;color:var(--text-4);">${rows.filter(r=>r.status==='ok').length}/${rows.length} claims present${missing ? ' &mdash; ' + missing + ' missing' : ''}</span>
+    </div>
+    <table>
+      <thead><tr><th>Claim</th><th>Scope</th><th>Status</th><th>Value / Note</th></tr></thead>
+      <tbody>
+        ${rows.map(row => `<tr class="sa-${row.status}">
+          <td class="sa-claim">${row.claim}</td>
+          <td class="sa-scope">${row.scope}</td>
+          <td class="sa-status ${row.status}">${row.statusLabel}</td>
+          <td class="sa-note">${row.status === 'ok' ? row.valPreview : (row.jcNote || row.desc)}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>`;
+
+  const healthPanel = document.getElementById('health-panel');
+  const feed = document.getElementById('steps-feed');
+  const insertAfter = healthPanel || feed.parentElement;
+  if (healthPanel) healthPanel.after(div);
+  else feed.parentElement.insertBefore(div, feed);
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 4: TOKEN EXPIRY TIMELINE
+// ══════════════════════════════════════════════════════════════════
+
+function renderTokenTimeline() {
+  const existing = document.getElementById('token-timeline');
+  if (existing) existing.remove();
+
+  const claims = globalResults.idTokenClaims;
+  if (!claims) return;
+
+  const now = Math.floor(Date.now() / 1000);
+  const idIat = claims.iat || now;
+  const idExp = claims.exp || now;
+  const atExp = now + (globalResults.tokenResponse && globalResults.tokenResponse.expires_in ? globalResults.tokenResponse.expires_in : 0);
+  // Refresh token: JumpCloud doesn't expose RT expiry in the token response — use 90 days as a reasonable default
+  const rtAvailable = !!globalResults.refreshResponse;
+  const rtExp = rtAvailable ? now + 90 * 24 * 3600 : null;
+
+  const earliest = idIat;
+  const latest = Math.max(idExp, atExp, rtExp || 0, now + 10);
+  const span = Math.max(latest - earliest, 1); // guard against zero span if all timestamps are equal
+
+  function pct(t) { return Math.max(0, Math.min(100, ((t - earliest) / span) * 100)).toFixed(1) + '%'; }
+  function fmt(t) {
+    const d = t - now;
+    if (d < 0) return 'expired';
+    if (d < 120) return d + 's';
+    if (d < 7200) return Math.round(d/60) + 'm';
+    if (d < 172800) return Math.round(d/3600) + 'h';
+    return Math.round(d/86400) + 'd';
+  }
+
+  const div = document.createElement('div');
+  div.id = 'token-timeline';
+  div.className = 'token-timeline';
+  div.innerHTML = `
+    <div class="timeline-head">
+      <span class="timeline-title">Token Expiry Timeline</span>
+    </div>
+    <div class="timeline-body">
+      <div class="timeline-row">
+        <div class="timeline-label">ID Token <span>expires in ${fmt(idExp)}</span></div>
+        <div class="timeline-track">
+          <div class="timeline-fill id-token" style="left:${pct(idIat)};width:${((idExp-idIat)/span*100).toFixed(1)}%"></div>
+          <div class="timeline-now" style="left:${pct(now)}"></div>
+        </div>
+      </div>
+      ${atExp > now ? `<div class="timeline-row">
+        <div class="timeline-label">Access Token <span>expires in ${fmt(atExp)}</span></div>
+        <div class="timeline-track">
+          <div class="timeline-fill access" style="left:${pct(now)};width:${((atExp-now)/span*100).toFixed(1)}%"></div>
+          <div class="timeline-now" style="left:${pct(now)}"></div>
+        </div>
+      </div>` : ''}
+      ${rtExp ? `<div class="timeline-row">
+        <div class="timeline-label">Refresh Token <span>~${fmt(rtExp)} (JumpCloud default ~90d)</span></div>
+        <div class="timeline-track">
+          <div class="timeline-fill refresh" style="left:${pct(now)};width:${Math.min(((rtExp-now)/span*100),98).toFixed(1)}%"></div>
+          <div class="timeline-now" style="left:${pct(now)}"></div>
+        </div>
+      </div>` : ''}
+      <div class="timeline-legend">
+        <div class="timeline-legend-item"><div class="timeline-legend-dot tld-id"></div>ID Token</div>
+        <div class="timeline-legend-item"><div class="timeline-legend-dot tld-at"></div>Access Token</div>
+        ${rtExp ? '<div class="timeline-legend-item"><div class="timeline-legend-dot tld-rt"></div>Refresh Token (est.)</div>' : ''}
+        <div class="timeline-legend-item"><div class="timeline-legend-dot" style="background:var(--brick);"></div>Now</div>
+      </div>
+    </div>`;
+
+  const scopePanel = document.getElementById('scope-analyser');
+  const healthPanel = document.getElementById('health-panel');
+  const feed = document.getElementById('steps-feed');
+  if (scopePanel) scopePanel.after(div);
+  else if (healthPanel) healthPanel.after(div);
+  else feed.parentElement.insertBefore(div, feed);
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 5: DISCOVERY INSPECTOR (pre-auth, collapsible)
+// ══════════════════════════════════════════════════════════════════
+
+function renderDiscoveryInspector(discovery) {
+  const existing = document.getElementById('discovery-inspector');
+  if (existing) existing.remove();
+  if (!discovery) return;
+
+  const REQUIRED_GRANTS = ['authorization_code'];
+  const EXPECTED_SCOPES = ['openid','email','profile','offline_access'];
+  const EXPECTED_CLAIMS = ['sub','iss','aud','exp','iat','email','email_verified','name','given_name'];
+  const EXPECTED_METHODS = ['RS256','ES256'];
+
+  function chipRow(label, all, expected) {
+    const chips = (all || []).map(v => {
+      const cls = expected ? (expected.includes(v) ? 'supported' : '') : '';
+      return `<span class="di-chip ${cls}">${v}</span>`;
+    }).join('');
+    return `<div class="di-section"><div class="di-section-title">${label}</div><div class="di-chip-row">${chips || '<span class="di-chip missing">none</span>'}</div></div>`;
+  }
+
+  const endpoints = [
+    ['Authorization', discovery.authorization_endpoint],
+    ['Token', discovery.token_endpoint],
+    ['UserInfo', discovery.userinfo_endpoint],
+    ['JWKS', discovery.jwks_uri],
+    ['Introspection', discovery.introspection_endpoint],
+    ['Revocation', discovery.revocation_endpoint],
+    ['End Session', discovery.end_session_endpoint],
+  ].filter(([,url]) => url);
+
+  const div = document.createElement('div');
+  div.id = 'discovery-inspector';
+  div.className = 'discovery-inspector';
+  div.innerHTML = `
+    <div class="di-head" onclick="toggleDiscoveryInspector(this)">
+      <span class="di-title">Discovery Inspector</span>
+      <button class="di-toggle-btn open" type="button">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="di-body open">
+      <div class="di-section">
+        <div class="di-section-title">Endpoints</div>
+        ${endpoints.map(([label, url]) => `<div class="di-endpoint"><span class="di-ep-label">${label}</span><span class="di-ep-url">${url}</span></div>`).join('')}
+      </div>
+      ${chipRow('Grant Types Supported', discovery.grant_types_supported, REQUIRED_GRANTS)}
+      ${chipRow('Response Types Supported', discovery.response_types_supported, ['code'])}
+      ${chipRow('Token Endpoint Auth Methods', discovery.token_endpoint_auth_methods_supported, ['client_secret_basic','client_secret_post','none'])}
+      ${chipRow('ID Token Signing Algorithms', discovery.id_token_signing_alg_values_supported, EXPECTED_METHODS)}
+      ${chipRow('Scopes Supported', discovery.scopes_supported, EXPECTED_SCOPES)}
+      ${chipRow('Claims Supported', discovery.claims_supported, EXPECTED_CLAIMS)}
+    </div>`;
+
+  const feed = document.getElementById('steps-feed');
+  feed.parentElement.insertBefore(div, feed);
+}
+
+function toggleDiscoveryInspector(head) {
+  const body = head.parentElement.querySelector('.di-body');
+  const btn  = head.querySelector('.di-toggle-btn');
+  if (!body) return;
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 6: MULTI-RUN DIFF
+// ══════════════════════════════════════════════════════════════════
+
+let diffRunA = null;
+let diffRunB = null;
+
+function saveRunForDiff() {
+  const claims = globalResults.idTokenClaims;
+  if (!claims) { alert('No ID Token claims to save — complete a verification run first.'); return; }
+  if (!diffRunA) {
+    diffRunA = { claims: JSON.parse(JSON.stringify(claims)), ts: new Date().toLocaleTimeString(), label: 'Run A' };
+    addStep('Diff', 'Run A saved (' + Object.keys(claims).length + ' claims). Complete another verification as a different user or group, then save Run B.', 'success', false);
+  } else if (!diffRunB) {
+    diffRunB = { claims: JSON.parse(JSON.stringify(claims)), ts: new Date().toLocaleTimeString(), label: 'Run B' };
+    renderDiffPanel();
+  } else {
+    // Both set — shift: B becomes A, current becomes B
+    diffRunA = diffRunB;
+    diffRunB = { claims: JSON.parse(JSON.stringify(claims)), ts: new Date().toLocaleTimeString(), label: 'Run B' };
+    renderDiffPanel();
+  }
+}
+
+function renderDiffPanel() {
+  const existing = document.getElementById('diff-panel');
+  if (existing) existing.remove();
+  if (!diffRunA || !diffRunB) return;
+
+  const a = diffRunA.claims;
+  const b = diffRunB.claims;
+  const allKeys = new Set([...Object.keys(a), ...Object.keys(b)]);
+
+  const rows = [];
+  allKeys.forEach(k => {
+    const inA = Object.prototype.hasOwnProperty.call(a, k);
+    const inB = Object.prototype.hasOwnProperty.call(b, k);
+    const valA = JSON.stringify(a[k]);
+    const valB = JSON.stringify(b[k]);
+    if (!inA) rows.push({ cls: 'diff-added',   key: k, valA: '—',  valB: valB });
+    else if (!inB) rows.push({ cls: 'diff-removed', key: k, valA: valA, valB: '—' });
+    else if (valA !== valB) rows.push({ cls: 'diff-changed', key: k, valA: valA, valB: valB });
+    else rows.push({ cls: '', key: k, valA: valA, valB: valB });
+  });
+
+  const changed = rows.filter(r => r.cls !== '').length;
+
+  const div = document.createElement('div');
+  div.id = 'diff-panel';
+  div.className = 'diff-panel';
+  div.innerHTML = `
+    <div class="diff-head">
+      <span class="diff-title">Claim Diff — ${changed} change(s)</span>
+      <button class="diff-save-btn" onclick="saveRunForDiff()">Save Next Run</button>
+    </div>
+    <div class="diff-body">
+      <div class="diff-runs-label">
+        <span class="diff-run-badge run-a">A: ${diffRunA.ts}</span>
+        <span class="diff-run-badge run-b">B: ${diffRunB.ts}</span>
+      </div>
+      ${changed === 0 ? '<div class="diff-empty">No claim differences between runs.</div>' : `
+      <table class="diff-table">
+        <thead><tr><th>Claim</th><th>Run A</th><th>Run B</th></tr></thead>
+        <tbody>
+          ${rows.filter(r => r.cls !== '').map(r => `
+            <tr class="${r.cls}">
+              <td class="diff-key">${r.key}</td>
+              <td class="diff-val-a">${r.valA}</td>
+              <td class="diff-val-b">${r.valB}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>`;
+
+  const timelineEl = document.getElementById('token-timeline');
+  const scopeEl    = document.getElementById('scope-analyser');
+  const healthEl   = document.getElementById('health-panel');
+  const feed       = document.getElementById('steps-feed');
+  const anchor = timelineEl || scopeEl || healthEl;
+  if (anchor) anchor.after(div);
+  else feed.parentElement.insertBefore(div, feed);
+}
+
+async function startTest() {
+  clearAll();
+  const cfg  = getFormValues();
+  const errs = validateFields(cfg);
+  if (errs.length) { showConfigStatus('error', 'Required: ' + errs.join(', ')); return; }
+
+  const { clientId, clientSecret, issuer, redirectUri, authType, scope } = cfg;
+  document.getElementById('run-btn').disabled = true;
+  setStatus('running', 'Running');
+  globalResults = { config: { clientId, issuer, redirectUri, authType, scope }, startedAt: new Date().toISOString() };
+  updateJson();
+
+  // Step total: 14 sections (0-13), plus sub-steps 6a-6c-auth which are sub-cards not counted in progress
+  const total = 14;
+  let step = 0;
+  const discoveryUrl = issuer.replace(/\/$/, '') + '/.well-known/openid-configuration';
+
+  // ── 0: Config validation ──────────────────────────────────────────
+  step++; updateProgress(step, total, 'Section 0: Validating config...');
+  const maskedClientId = clientId.length > 8 ? clientId.slice(0, -8).replace(/./g, '*') + clientId.slice(-8) : clientId;
+  addStep('Section 0: Config Validation', 'clientId=' + maskedClientId + ' | issuer=' + issuer + ' | authType=' + authType + ' | scope=' + scope, 'success', false);
+
+  // ── 1: Discovery ──────────────────────────────────────────────────
+  let discovery, authEndpoint, tokenEndpoint, userInfoEndpoint, jwksUri;
+  let resolveDiscovery;
+  try {
+    step++; updateProgress(step, total, 'Section 1: Fetching discovery document...');
+    resolveDiscovery = addRunningStep('Section 1: Discovery Document', 'Fetching ' + discoveryUrl);
+    const r = await fetch(discoveryUrl);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    discovery = await r.json();
+    authEndpoint     = discovery.authorization_endpoint;
+    tokenEndpoint    = discovery.token_endpoint;
+    userInfoEndpoint = discovery.userinfo_endpoint;
+    jwksUri          = discovery.jwks_uri;
+    const missing = ['authorization_endpoint','token_endpoint','jwks_uri','userinfo_endpoint'].filter(k => !discovery[k]);
+    if (missing.length) throw new Error('Missing required endpoints: ' + missing.join(', '));
+    // Security: validate that all endpoints extracted from the discovery doc are on an expected origin.
+    // This prevents a compromised or spoofed discovery document redirecting token requests to an attacker host.
+    const allowedOrigins = [
+      'https://oauth.id.jumpcloud.com',
+      'https://oauth.id.eu.jumpcloud.com',
+      'https://oauth.id.in.jumpcloud.com'
+    ];
+    function isSafeEndpoint(url) {
+      try { return allowedOrigins.some(o => new URL(url).origin === o); } catch(e2) { return false; }
+    }
+    const unsafeEndpoints = [
+      ['authorization_endpoint', authEndpoint],
+      ['token_endpoint', tokenEndpoint],
+      ['jwks_uri', jwksUri],
+      ['userinfo_endpoint', userInfoEndpoint]
+    ].filter(([, url]) => !isSafeEndpoint(url));
+    if (unsafeEndpoints.length) {
+      throw new Error('Security: discovery document contains endpoint(s) on an unexpected origin: ' +
+        unsafeEndpoints.map(([k, v]) => k + '=' + v).join(', ') +
+        '. Expected origins: ' + allowedOrigins.join(', ') + '. Aborting to prevent token leakage.');
+    }
+    const extras = [];
+    if (discovery.introspection_endpoint) extras.push('introspection');
+    if (discovery.revocation_endpoint)    extras.push('revocation');
+    if (discovery.end_session_endpoint)   extras.push('end_session');
+    globalResults.discovery = discovery;
+    resolveDiscovery('All required endpoints present.' + (extras.length ? ' Optional: ' + extras.join(', ') + '.' : ''), 'success', true);
+    renderDiscoveryInspector(discovery);
+    updateJson();
+  } catch(e) {
+    resolveDiscovery(e.message, 'error');
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 2: JWKS ───────────────────────────────────────────────────────
+  let jwks;
+  let resolveJwks;
+  try {
+    step++; updateProgress(step, total, 'Section 2: Fetching JWKS...');
+    resolveJwks = addRunningStep('Section 2: JWKS Endpoint', 'Fetching signing keys from ' + jwksUri);
+    const r = await fetch(jwksUri);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    jwks = await r.json();
+    if (!jwks.keys || !jwks.keys.length) throw new Error('No signing keys returned');
+    const algs = [...new Set(jwks.keys.map(k => k.alg || k.kty).filter(Boolean))].join(', ');
+    globalResults.jwks = { keyCount: jwks.keys.length, algorithms: algs };
+    resolveJwks(jwks.keys.length + ' signing key(s). Algorithms: ' + algs, 'success', true);
+    updateJson();
+  } catch(e) {
+    resolveJwks(e.message, 'error');
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 3: Auth URL ───────────────────────────────────────────────────
+  let pkce = null;
+  let resolveAuthUrl;
+  try {
+    step++; updateProgress(step, total, 'Section 3: Building authorization URL...');
+    resolveAuthUrl = addRunningStep('Section 3: Authorization URL', 'Constructing auth request...');
+    const randHex = n => Array.from(crypto.getRandomValues(new Uint8Array(n))).map(b => b.toString(16).padStart(2,'0')).join('');
+    currentState = randHex(16);
+    currentNonce = randHex(16);
+    const params = new URLSearchParams({
+      response_type: 'code', client_id: clientId,
+      redirect_uri: redirectUri, scope, state: currentState, nonce: currentNonce
+    });
+    if (authType === 'none_pkce') {
+      pkce = await generatePKCE();
+      pkceVerifier = pkce.verifier;
+      params.set('code_challenge', pkce.challenge);
+      params.set('code_challenge_method', 'S256');
+      globalResults.pkce = { challenge: pkce.challenge, method: 'S256' };
+    }
+    const authUrl = authEndpoint + '?' + params.toString();
+    globalResults.authUrl = authUrl;
+    resolveAuthUrl('Auth URL constructed.' + (authType === 'none_pkce' ? ' PKCE S256 challenge included.' : ''), 'success', true, [
+      { label: 'Open Auth URL', fn: function() { window.open(authUrl, '_blank'); } }
+    ]);
+    updateJson();
+  } catch(e) {
+    resolveAuthUrl(e.message, 'error');
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 4: Manual login ───────────────────────────────────────────────
+  let code;
+  let resolveLogin;
+  try {
+    step++; updateProgress(step, total, 'Section 4: Awaiting user login...');
+    setStatus('running', 'Awaiting login');
+    resolveLogin = addRunningStep('Section 4: Browser Login', 'Open the auth URL, complete login, then paste the redirect URL.');
+    const redirectUrl = await waitForRedirect();
+    // Robust parser: handles full URLs, bare query strings, ?-prefixed, and /path?query
+    function parseRedirectSafe(s) {
+      s = s.trim();
+      if (/^https?:\/\//i.test(s)) return new URL(s);
+      const qs = s.startsWith('?') ? s.slice(1) : (s.includes('=') && !s.includes('/') ? s : null);
+      if (qs !== null) return new URL('http://x?' + qs);
+      return new URL('http://localhost' + (s.startsWith('/') ? '' : '/') + s);
+    }
+    const url = parseRedirectSafe(redirectUrl);
+    // Security: verify the pasted URL's origin matches the configured redirect URI,
+    // so an SE can't accidentally (or an attacker can't intentionally) feed a code
+    // from a different origin into this tool's token exchange.
+    try {
+      const expectedOrigin = new URL(redirectUri).origin;
+      const actualOrigin   = url.origin;
+      if (expectedOrigin !== 'null' && actualOrigin !== 'null' && expectedOrigin !== actualOrigin) {
+        throw new Error('Redirect URL origin mismatch. Expected: ' + expectedOrigin + ' | Got: ' + actualOrigin + '. Paste the URL your browser redirected to after login.');
+      }
+    } catch(originErr) {
+      if (originErr.message.includes('origin mismatch')) throw originErr;
+      // URL was a bare query string — skip origin check
+    }
+    code = url.searchParams.get('code');
+    const returnedState = url.searchParams.get('state');
+    const error = url.searchParams.get('error');
+    if (error) throw new Error('Auth error: ' + error + ' — ' + (url.searchParams.get('error_description') || ''));
+    if (!code) throw new Error('No code parameter in redirect URL');
+    const stateOk = returnedState === currentState;
+    resolveLogin('Authorization code received.' + (stateOk ? ' State validated.' : ' WARNING: state mismatch — possible CSRF.'), stateOk ? 'success' : 'warning', false);
+    globalResults.authCodeReceived = true;
+    setStatus('running', 'Running');
+    updateJson();
+  } catch(e) {
+    if (resolveLogin) resolveLogin(e.message, 'error');
+    else addStep('Section 4: Login', e.message, 'error', false);
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 5: Token Exchange ─────────────────────────────────────────────
+  let tokenResp, idToken, accessToken, refreshToken;
+  let resolveTokenExchange;
+  try {
+    step++; updateProgress(step, total, 'Section 5: Exchanging code for tokens...');
+    resolveTokenExchange = addRunningStep('Section 5: Token Exchange', 'Sending authorization code to token endpoint...');
+    const body = { grant_type: 'authorization_code', code, redirect_uri: redirectUri };
+    if (authType === 'none_pkce') body.code_verifier = pkceVerifier;
+    const r = await buildTokenRequest(tokenEndpoint, body);
+    tokenResp = await r.json();
+    if (!r.ok) throw new Error('HTTP ' + r.status + ': ' + (tokenResp.error_description || tokenResp.error || JSON.stringify(tokenResp)));
+    if (!tokenResp.id_token)     throw new Error('id_token missing from response');
+    if (!tokenResp.access_token) throw new Error('access_token missing from response');
+    if ((tokenResp.token_type || '').toLowerCase() !== 'bearer') throw new Error('token_type is not Bearer: ' + tokenResp.token_type);
+    idToken = tokenResp.id_token;
+    accessToken = tokenResp.access_token;
+    refreshToken = tokenResp.refresh_token;
+    const atFormat = accessToken.split('.').length === 3 ? 'JWT' : 'Opaque';
+    globalResults.accessTokenFormat = atFormat;
+    globalResults.accessTokenRaw    = accessToken;
+    globalResults.idTokenRaw        = idToken;
+    globalResults.refreshTokenRaw   = refreshToken || null;
+    globalResults.tokenResponse     = tokenResp;
+    if (atFormat === 'JWT') {
+      try { globalResults.accessTokenDecoded = decodeJwt(accessToken).payload; } catch(e2) {}
+    }
+    const rtNote = refreshToken ? 'refresh_token present.' : 'No refresh_token — enable Refresh Token grant in JumpCloud SSO app.';
+    resolveTokenExchange('token_type=Bearer | expires_in=' + tokenResp.expires_in + 's | access_token=' + atFormat + ' | ' + rtNote, 'success', true, [
+      { label: 'Copy id_token', fn: function() { copyToken('idTokenRaw'); } },
+      { label: 'Open jwt.io',   fn: function() { openJwtIo('idTokenRaw'); } }
+    ]);
+    // 5a: Access token format note
+    const atMsg = atFormat === 'Opaque'
+      ? 'Opaque [JumpCloud default] — cannot be decoded locally. JumpCloud will validate it at the UserInfo endpoint via Bearer token. To enable local validation or inspect claims directly, go to SSO app > SSO tab > Advanced Settings > Access Token Format > JWT.'
+      : 'JWT — can be decoded locally. Claims visible in Access Token tab.';
+    addStep('Section 5a: Access Token Format', atMsg, atFormat === 'Opaque' ? 'warning' : 'success', true,
+      atFormat === 'JWT' ? [{ label: 'Open jwt.io', fn: function() { openJwtIo('accessTokenRaw'); } }] : []);
+    // Enable introspect/revoke buttons now that we have tokens
+    const biBtn = document.getElementById('btn-introspect');
+    const brBtn = document.getElementById('btn-revoke');
+    if (biBtn) biBtn.disabled = !discovery.introspection_endpoint;
+    if (brBtn) brBtn.disabled = !discovery.revocation_endpoint;
+    updateJson();
+  } catch(e) {
+    resolveTokenExchange(e.message, 'error');
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 6: ID Token Claims ────────────────────────────────────────────
+  let decoded;
+  let resolveIdToken;
+  try {
+    step++; updateProgress(step, total, 'Section 6: Validating id_token...');
+    resolveIdToken = addRunningStep('Section 6: ID Token Claims', 'Decoding and validating id_token...');
+    decoded = decodeJwt(idToken);
+    const p = decoded.payload;
+    // Issuer — normalise trailing slash (real JumpCloud tokens have trailing slash)
+    const normIss    = (p.iss || '').replace(/\/$/, '');
+    const normIssuer = issuer.replace(/\/$/, '');
+    if (normIss !== normIssuer) throw new Error('iss mismatch. Token: ' + p.iss + ' | Config: ' + issuer);
+    // Core claims
+    const aud = Array.isArray(p.aud) ? p.aud : [p.aud];
+    if (!aud.includes(clientId)) throw new Error('aud does not contain clientId. aud=' + JSON.stringify(p.aud));
+    if (p.nonce !== currentNonce) throw new Error('nonce mismatch — possible replay attack');
+    const now = Math.floor(Date.now() / 1000);
+    if (p.exp <= now) throw new Error('id_token expired (exp=' + p.exp + ', now=' + now + ')');
+    const skewSec = now - p.iat;
+    if (p.iat > now + 300) throw new Error('iat is in the future by ' + Math.abs(skewSec) + 's — severe clock skew or token replay');
+    const skewNote = Math.abs(skewSec) > 300 ? 'CLOCK SKEW ' + skewSec + 's (exceeds RFC 9068 300s tolerance)' : 'clock skew ' + skewSec + 's OK (within RFC 9068 300s)';
+    // Algorithm
+    if (!['RS256','ES256','RS384','ES384'].includes(decoded.header.alg))
+      throw new Error('Unexpected signing algorithm: ' + decoded.header.alg);
+    let kidStatus = 'no kid in header';
+    if (decoded.header.kid) {
+      kidStatus = jwks.keys.find(k => k.kid === decoded.header.kid) ? 'kid matched in JWKS' : ('kid NOT in JWKS: ' + decoded.header.kid);
+    }
+    const slashNote = p.iss !== issuer ? ' | iss has trailing slash (normalised — configure app to use: ' + p.iss + ')' : '';
+    globalResults.idTokenHeader = decoded.header;
+    globalResults.idTokenClaims = p;
+    globalResults.clockSkewSeconds = skewSec;
+    resolveIdToken('alg=' + decoded.header.alg + ' | ' + kidStatus + ' | ' + skewNote + slashNote + ' | Note: signature not cryptographically verified (client-side tool — structural and claim validation only).',
+      (Math.abs(skewSec) > 300 || p.iss !== issuer) ? 'warning' : 'success', true,
+      [{ label: 'Copy id_token', fn: function() { copyToken('idTokenRaw'); } }, { label: 'jwt.io', fn: function() { openJwtIo('idTokenRaw'); } }]);
+    updateJson();
+
+    // Claims table
+    addClaimsTable('Section 6: ID Token Claims Table', p, true);
+
+    // 6a: AMR
+    try {
+      const amr = p.amr;
+      if (Array.isArray(amr) && amr.length > 0)
+        addStep('Section 6a: MFA / AMR', 'MFA completed. Factors: ' + amr.join(', ') + '. AMR auto-included by JumpCloud when MFA is used.', 'success', true);
+      else if (amr !== undefined)
+        addStep('Section 6a: MFA / AMR', 'amr claim present but empty — MFA not enforced for this session.', 'warning', true);
+      else
+        addStep('Section 6a: MFA / AMR', 'amr absent — no MFA used. JumpCloud only populates amr when MFA factors are completed.', 'warning', true);
+    } catch(e2) { addStep('Section 6a: MFA / AMR', 'Error: ' + e2.message, 'error', true); }
+
+    // 6b: Standard claims
+    try {
+      const missing = [];
+      if (scope.includes('email')   && !p.email)                 missing.push('email (scope requested but absent — check Attribute Mapping)');
+      if (scope.includes('profile') && !p.name && !p.given_name) missing.push('name/given_name (profile scope — check Attribute Mapping)');
+      const evRaw = p.email_verified;
+      if (evRaw === false || evRaw === 'false') missing.push('email_verified=false — user email not verified in JumpCloud');
+      if (missing.length) addStep('Section 6b: Standard Claims', missing.join(' | '), 'warning', true);
+      else {
+        const present = ['sub','email','email_verified','name','given_name','preferred_username','jc_org','sid']
+          .filter(k => p[k] !== undefined).map(k => k + '=' + p[k]);
+        addStep('Section 6b: Standard Claims', present.length ? present.join(' | ') : 'Only sub present — add scopes.', present.length ? 'success' : 'warning', true);
+      }
+    } catch(e2) { addStep('Section 6b: Standard Claims', 'Error: ' + e2.message, 'error', true); }
+
+    // 6c: Custom / groups claims
+    try {
+      const reserved = new Set(['iss','sub','aud','exp','iat','jti','nonce','at_hash','c_hash','auth_time','acr','amr','azp','sid','rat','jc_org','email','email_verified','name','given_name','family_name','middle_name','nickname','preferred_username','profile','picture','website','gender','birthdate','zoneinfo','locale','phone_number','phone_number_verified','address','updated_at','authorizations']);
+      // Note: 'authorizations' is excluded from custom claims and surfaced separately in Section 6c-auth below
+      const custom = Object.keys(p).filter(k => !reserved.has(k));
+      if (custom.length) {
+        const note = custom.map(k => { const v = p[k]; const arr = Array.isArray(v) ? v : [v]; return k + '=[' + arr.slice(0,3).join(',') + (arr.length > 3 ? '...' : '') + ']' + (!Array.isArray(v) && typeof v === 'string' ? ' (string — normalise to array in app parser)' : ''); }).join(' | ');
+        globalResults.customClaims = custom.reduce((o,k) => { o[k] = p[k]; return o; }, {});
+        addStep('Section 6c: Custom / Groups Claims', custom.length + ' custom claim(s): ' + note, 'success', true);
+      } else {
+        addStep('Section 6c: Custom / Groups Claims', 'No custom claims. Enable "include group attribute" and configure User Attribute Mappings in JumpCloud SSO app if needed.', 'warning', true);
+      }
+    } catch(e2) { addStep('Section 6c: Custom Claims', 'Error: ' + e2.message, 'error', true); }
+
+    // 6c-auth: authorizations claim (JumpCloud role/permission mapping)
+    try {
+      const authz = p.authorizations;
+      if (authz !== undefined) {
+        const display = typeof authz === 'object' ? JSON.stringify(authz) : String(authz);
+        addStep('Section 6c-auth: Authorizations Claim', 'authorizations present: ' + display + '. This is a JumpCloud-specific claim populated via User Attribute Mappings. Your application should parse this to derive roles or permissions.', 'success', true);
+      } else {
+        addStep('Section 6c-auth: Authorizations Claim', 'No authorizations claim. To include role/permission data, configure User Attribute Mappings in the JumpCloud SSO app and map group memberships or custom attributes to an "authorizations" key.', 'warning', true);
+      }
+    } catch(e2) { addStep('Section 6c-auth: Authorizations Claim', 'Error: ' + e2.message, 'error', true); }
+    try {
+      const audList = Array.isArray(p.aud) ? p.aud : [p.aud];
+      const extra = audList.filter(a => a !== clientId);
+      const extraNote = extra.length
+        ? ' Extra audiences: ' + extra.join(', ') + '. Verify these are intentional — configure additional audiences under SSO app Advanced Settings (max 5).'
+        : ' No extra audiences.';
+      addStep('Section 6d: Audience', audList.length + ' audience(s). Full aud: ' + JSON.stringify(audList) + '. clientId present.' + extraNote, extra.length > 0 ? 'warning' : 'success', true);
+    } catch(e2) { addStep('Section 6d: Audience', 'Error: ' + e2.message, 'error', true); }
+
+    updateJson();
+  } catch(e) {
+    resolveIdToken(e.message, 'error');
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 7: UserInfo ───────────────────────────────────────────────────
+  let userInfo;
+  let resolveUserInfo;
+  try {
+    step++; updateProgress(step, total, 'Section 7: Calling UserInfo...');
+    resolveUserInfo = addRunningStep('Section 7: UserInfo Endpoint', 'Calling UserInfo with access token...');
+    const r = await fetch(userInfoEndpoint, { headers: { Authorization: 'Bearer ' + accessToken } });
+    userInfo = await r.json();
+    if (!r.ok) throw new Error('HTTP ' + r.status + ': ' + (userInfo.error || ''));
+    if (!userInfo.sub) throw new Error('sub missing from UserInfo response');
+    const uiReserved = new Set(['sub','name','given_name','family_name','middle_name','nickname','preferred_username','profile','picture','website','email','email_verified','gender','birthdate','zoneinfo','locale','phone_number','phone_number_verified','address','updated_at']);
+    const summary = [];
+    if (userInfo.sub)               summary.push('sub=' + userInfo.sub);
+    if (userInfo.email)             summary.push('email=' + userInfo.email);
+    if (userInfo.name)              summary.push('name=' + userInfo.name);
+    if (userInfo.preferred_username) summary.push('preferred_username=' + userInfo.preferred_username);
+    const uiCustom = Object.keys(userInfo).filter(k => !uiReserved.has(k));
+    uiCustom.forEach(k => { const v = userInfo[k]; summary.push(k + '=[' + (Array.isArray(v) ? v.slice(0,3).join(',') : v) + ']'); });
+    const evRaw = userInfo.email_verified;
+    const evOk = evRaw === true || evRaw === 'true';
+    if (evRaw === false || evRaw === 'false')
+      addStep('Section 7a: Email Verified', 'email_verified=false — user email not verified in JumpCloud. Some apps block access on this.', 'warning', true);
+    globalResults.userinfo = userInfo;
+    resolveUserInfo(summary.join(' | '), 'success', true);
+    addClaimsTable('Section 7: UserInfo Claims Table', userInfo, true);
+    updateJson();
+  } catch(e) {
+    resolveUserInfo(e.message, 'error');
+    setStatus('error', 'Failed'); document.getElementById('run-btn').disabled = false; return;
+  }
+
+  // ── 8: Refresh Token ──────────────────────────────────────────────
+  let refreshResp = null;
+  let resolveRefresh;
+  try {
+    step++; updateProgress(step, total, 'Section 8: Testing refresh token...');
+    resolveRefresh = addRunningStep('Section 8: Refresh Token', 'Testing refresh token cycle...');
+    if (!refreshToken) {
+      resolveRefresh('No refresh_token returned. Enable "Refresh Token" under Grant Types in JumpCloud SSO app configuration. Also add offline_access scope.', 'warning', false);
+    } else {
+      const r = await buildTokenRequest(tokenEndpoint, { grant_type: 'refresh_token', refresh_token: refreshToken });
+      refreshResp = await r.json();
+      if (!r.ok) throw new Error('HTTP ' + r.status + ': ' + (refreshResp.error_description || refreshResp.error || ''));
+      if (!refreshResp.id_token || !refreshResp.access_token) throw new Error('Missing tokens in refresh response');
+      const rotated = !!(refreshResp.refresh_token && refreshResp.refresh_token !== refreshToken);
+      globalResults.refreshResponse = refreshResp;
+      resolveRefresh('Refresh successful. expires_in=' + refreshResp.expires_in + 's. ' + (rotated ? 'Token rotated (secure).' : 'Token NOT rotated — consider enabling rotation.'), rotated ? 'success' : 'warning', false);
+    }
+  } catch(e) { resolveRefresh(e.message, 'error'); }
+
+  // ── 9: Refresh — decode id_token ──────────────────────────────────
+  if (refreshResp) {
+    step++; updateProgress(step, total, 'Section 9: Decoding refreshed id_token...');
+    try {
+      const ref9 = decodeJwt(refreshResp.id_token);
+      globalResults.refreshedIdTokenClaims = ref9.payload;
+      addStep('Section 9: Refreshed ID Token', 'Decoded. sub=' + ref9.payload.sub + ' | iat=' + ref9.payload.iat + ' | exp=' + ref9.payload.exp, 'success', false,
+        [{ label: 'jwt.io', fn: function() { openJwtIo('refreshedIdTokenRaw'); } }]);
+      globalResults.refreshedIdTokenRaw = refreshResp.id_token;
+    } catch(e) { addStep('Section 9: Refreshed ID Token', e.message, 'error', false); }
+  } else step++;
+
+  // ── 10: UserInfo with refreshed access token ──────────────────────
+  if (refreshResp) {
+    step++; updateProgress(step, total, 'Section 10: UserInfo with refreshed access token...');
+    try {
+      const r = await fetch(userInfoEndpoint, { headers: { Authorization: 'Bearer ' + refreshResp.access_token } });
+      const ui2 = await r.json();
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const subMatch = ui2.sub === (userInfo && userInfo.sub);
+      const sidMatch = (ui2.sid !== undefined && userInfo && userInfo.sid !== undefined) ? ui2.sid === userInfo.sid : null;
+      const sidNote  = sidMatch === null ? '' : (sidMatch ? ' | sid consistent.' : ' | WARNING: sid mismatch — session context changed across refresh.');
+      addStep('Section 10: UserInfo (Refreshed Access Token)', 'sub=' + ui2.sub + (subMatch ? ' — matches original.' : ' — MISMATCH with original UserInfo!') + sidNote, (subMatch && sidMatch !== false) ? 'success' : 'error', false);
+      globalResults.userinfoRefreshed = ui2;
+    } catch(e) { addStep('Section 10: UserInfo (Refreshed)', e.message, 'error', false); }
+  } else step++;
+
+  // ── 11: Old refresh token reuse check ─────────────────────────────
+  if (refreshResp && refreshResp.refresh_token && refreshResp.refresh_token !== refreshToken) {
+    step++; updateProgress(step, total, 'Section 11: Testing old refresh token reuse...');
+    try {
+      const r = await buildTokenRequest(tokenEndpoint, { grant_type: 'refresh_token', refresh_token: refreshToken });
+      const body = await r.json();
+      if (r.ok) addStep('Section 11: Token Rotation Enforcement', 'WARNING: Old refresh token accepted — rotation not enforced. This is a security risk. Revoked tokens should be rejected.', 'warning', false);
+      else       addStep('Section 11: Token Rotation Enforcement', 'Old refresh token correctly rejected (HTTP ' + r.status + '). Rotation enforced.', 'success', false);
+      globalResults.tokenRotationEnforced = !r.ok;
+    } catch(e) { addStep('Section 11: Token Rotation', e.message, 'error', false); }
+  } else step++;
+
+  // ── 12: End Session (Logout) ──────────────────────────────────────────
+  step++; updateProgress(step, total, 'Section 12: Checking end_session endpoint...');
+  try {
+    const endSessionEndpoint = discovery.end_session_endpoint;
+    if (!endSessionEndpoint) {
+      addStep('Section 12: End Session Endpoint', 'end_session_endpoint not advertised in discovery. JumpCloud does not publish this for all configurations. If your application requires explicit logout (common in healthcare, finance, or compliance-regulated environments), verify with your JumpCloud admin whether front-channel logout is supported for this SSO app.', 'warning', false);
+    } else {
+      const logoutParams = new URLSearchParams({ post_logout_redirect_uri: redirectUri });
+      if (globalResults.idTokenRaw) logoutParams.set('id_token_hint', globalResults.idTokenRaw);
+      const logoutUrl = endSessionEndpoint + '?' + logoutParams.toString();
+      globalResults.endSessionUrl = logoutUrl;
+      addStep('Section 12: End Session Endpoint', 'end_session_endpoint present: ' + endSessionEndpoint + '. Logout URL constructed with id_token_hint and post_logout_redirect_uri. Open to confirm session termination.', 'success', false,
+        [{ label: 'Open Logout URL', fn: function() { window.open(logoutUrl, '_blank'); } },
+         { label: 'Copy Logout URL', fn: function() {
+             navigator.clipboard.writeText(logoutUrl).then(function() {
+               document.querySelectorAll('button[data-action]').forEach(function(x) {
+                 if (x.textContent === 'Copy Logout URL') {
+                   x.textContent = 'Copied!';
+                   setTimeout(function() { x.textContent = 'Copy Logout URL'; }, 1500);
+                 }
+               });
+             });
+           }
+         }]);
+    }
+    updateJson();
+  } catch(e) { addStep('Section 12: End Session', e.message, 'error', false); }
+
+  // ── 13: Summary ───────────────────────────────────────────────────
+  step++; updateProgress(step, total, 'Done.');
+  const summaryParts = [];
+  if (globalResults.idTokenClaims)   summaryParts.push('ID Token validated');
+  if (globalResults.userinfo)        summaryParts.push('UserInfo OK');
+  if (globalResults.refreshResponse) summaryParts.push('Refresh Token OK');
+  if (globalResults.endSessionUrl)   summaryParts.push('End Session OK');
+  if (globalResults.customClaims && Object.keys(globalResults.customClaims).length) summaryParts.push(Object.keys(globalResults.customClaims).length + ' custom claim(s)');
+  addStep('Section 13: Verification Complete', summaryParts.join(' | ') || 'All executed steps passed.', 'success', false);
+  globalResults.completedAt = new Date().toISOString();
+  updateJson();
+  setStatus('success', 'Complete');
+  document.getElementById('run-btn').disabled = false;
+
+  // Render all new panels
+  renderHealthPanel();
+  renderScopeAnalyser();
+  renderTokenTimeline();
+}
+</script>
+</body>
+</html>

@@ -1085,6 +1085,7 @@ body.is-resizing * { cursor: col-resize !important; }
   padding: var(--s5);
   display: flex; flex-direction: column;
   gap: var(--s2);
+  scroll-behavior: smooth;
 }
 
 /* Step cards */
@@ -1476,8 +1477,16 @@ body.is-resizing * { cursor: col-resize !important; }
 .di-toggle-btn { background: none; border: none; cursor: pointer; color: var(--text-4); padding: 2px; display: flex; align-items: center; }
 .di-toggle-btn svg { transition: transform 200ms; }
 .di-toggle-btn.open svg { transform: rotate(180deg); }
-.di-body { display: none; padding: var(--s3) var(--s4); }
-.di-body.open { display: block; }
+.di-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 var(--s4);
+  transition: max-height 280ms cubic-bezier(.4,0,.2,1), padding 280ms cubic-bezier(.4,0,.2,1);
+}
+.di-body.open {
+  max-height: 2000px;
+  padding: var(--s3) var(--s4);
+}
 .di-section { margin-bottom: var(--s3); }
 .di-section-title { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-4); margin-bottom: var(--s2); }
 .di-chip-row { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -3288,13 +3297,13 @@ function renderDiscoveryInspector(discovery) {
   div.innerHTML = `
     <div class="di-head" onclick="toggleDiscoveryInspector(this)">
       <span class="di-title">Discovery Inspector</span>
-      <button class="di-toggle-btn open" type="button">
+      <button class="di-toggle-btn" type="button">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
       </button>
     </div>
-    <div class="di-body open">
+    <div class="di-body">
       <div class="di-section">
         <div class="di-section-title">Endpoints</div>
         ${endpoints.map(([label, url]) => `<div class="di-endpoint"><span class="di-ep-label">${label}</span><span class="di-ep-url">${url}</span></div>`).join('')}

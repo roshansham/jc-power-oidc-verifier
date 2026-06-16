@@ -204,6 +204,22 @@ html, body {
 
 .topbar-spacer { flex: 1; }
 
+.topbar-token-timer {
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 var(--s3);
+  font-family: var(--font-mono); font-size: 10.5px;
+  color: rgba(255,255,255,0.78);
+  flex-shrink: 0;
+}
+.ttt-item { display: flex; align-items: center; gap: 5px; white-space: nowrap; cursor: default; }
+.ttt-item strong { font-weight: 700; color: #fff; }
+.ttt-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.ttt-id .ttt-dot { background: var(--pool); }
+.ttt-at .ttt-dot { background: var(--jade); }
+.ttt-rt .ttt-dot { background: #7c5cbf; }
+.ttt-item.ttt-expired strong { color: var(--brick); }
+.ttt-rt strong { border-bottom: 1px dashed rgba(255,255,255,0.45); padding-bottom: 1px; }
+
 .topbar-status {
   display: flex; align-items: center; gap: var(--s2);
   background: rgba(255,255,255,0.04);
@@ -1584,7 +1600,18 @@ body.is-resizing * { cursor: col-resize !important; }
     </div>
   </div>
   <div class="topbar-divider"></div>
-  <span class="topbar-pill">v3.0</span>
+  <span class="topbar-pill">v3.1</span>
+  <div class="topbar-token-timer" id="topbar-token-timer" style="display:none;">
+    <span class="ttt-item ttt-id" title="ID Token — verified from exp claim">
+      <span class="ttt-dot"></span>ID <strong id="ttt-id-val">--</strong>
+    </span>
+    <span class="ttt-item ttt-at" title="Access Token — verified from expires_in">
+      <span class="ttt-dot"></span>AT <strong id="ttt-at-val">--</strong>
+    </span>
+    <span class="ttt-item ttt-rt" title="Refresh Token — estimated. JumpCloud does not return an actual refresh token expiry; ~90 days is a tenant default assumption, not verified telemetry.">
+      <span class="ttt-dot"></span>RT~ <strong id="ttt-rt-val">--</strong>
+    </span>
+  </div>
   <div class="topbar-spacer"></div>
   <div class="topbar-status">
     <div class="status-dot" id="status-dot"></div>
@@ -1857,6 +1884,7 @@ body.is-resizing * { cursor: col-resize !important; }
         <button class="json-tab"        onclick="switchJsonTab('userinfo')" id="jtab-userinfo">UserInfo</button>
         <button class="json-tab"        onclick="switchJsonTab('access')"   id="jtab-access">Access</button>
         <button class="json-tab"        onclick="switchJsonTab('introspect')" id="jtab-introspect">Introspect</button>
+        <button class="json-tab"        onclick="switchJsonTab('revoke')" id="jtab-revoke">Revoke</button>
       </div>
       <div class="json-action-row">
         <button class="json-action-btn" id="btn-introspect" disabled onclick="runIntrospect()">Introspect Token</button>
@@ -2513,12 +2541,17 @@ function updateJson() {
     else if (globalResults.discovery && !globalResults.discovery.introspection_endpoint) data = { note: 'JumpCloud does not advertise an introspection_endpoint in this tenant\'s OIDC discovery document, so RFC 7662 introspection is not exposed to relying parties here. The Introspect Token button above is disabled for this reason. Use the ID Token / Access Token tabs or the UserInfo endpoint to inspect token state instead.' };
     else data = { note: 'Run verification first, then use the Introspect Token button above (enabled only if JumpCloud advertises an introspection_endpoint for this tenant).' };
   }
+  else if (currentJsonTab === 'revoke') {
+    if (globalResults.revokeResult) data = globalResults.revokeResult;
+    else if (globalResults.discovery && !globalResults.discovery.revocation_endpoint) data = { note: 'JumpCloud does not advertise a revocation_endpoint in this tenant\'s OIDC discovery document.' };
+    else data = { note: 'Run verification first, then use the Revoke Token button above.' };
+  }
   else                                      data = globalResults;
   out.value = JSON.stringify(data, null, 2);
 }
 function switchJsonTab(name) {
   currentJsonTab = name;
-  ['full','idtoken','userinfo','access','introspect'].forEach(t => {
+  ['full','idtoken','userinfo','access','introspect','revoke'].forEach(t => {
     const el = document.getElementById('jtab-' + t);
     if (el) el.classList.toggle('active', t === name);
   });
@@ -2538,6 +2571,7 @@ function clearSensitiveData() {
 }
 function clearAll() {
   clearSensitiveData();
+  stopTokenTimer();
   document.getElementById('steps-feed').innerHTML = '';
   // Clear action registry
   Object.keys(_actionRegistry).forEach(k => delete _actionRegistry[k]);
@@ -3066,13 +3100,20 @@ async function runRevoke() {
   try {
     const discovery = globalResults.discovery;
     if (!discovery || !discovery.revocation_endpoint) {
+      globalResults.revokeResult = { note: 'revocation_endpoint not advertised in discovery document.' };
+      switchJsonTab('revoke');
       addStep('Revocation', 'revocation_endpoint not advertised in discovery document.', 'warning', false);
       return;
     }
     const cfg = getFormValues();
     const endpoint = discovery.revocation_endpoint;
     const token = globalResults.accessTokenRaw;
-    if (!token || token === '[cleared]') { addStep('Revocation', 'Access token not available.', 'error', false); return; }
+    if (!token || token === '[cleared]') {
+      globalResults.revokeResult = { note: 'Access token not available — run verification first.' };
+      switchJsonTab('revoke');
+      addStep('Revocation', 'Access token not available.', 'error', false);
+      return;
+    }
 
     const body = new URLSearchParams({ token, token_type_hint: 'access_token' });
     let resp;
@@ -3085,6 +3126,8 @@ async function runRevoke() {
     }
 
     if (resp.ok || resp.status === 200) {
+      globalResults.revokeResult = { revocation_http_status: resp.status, accepted: true };
+      switchJsonTab('revoke');
       addStep('Section 15: Token Revocation', 'Access token revocation request accepted (HTTP ' + resp.status + '). Verifying by calling UserInfo...', 'success', false);
       // Verify: UserInfo should now return 401
       const uiResp = await fetch(globalResults.discovery.userinfo_endpoint, { headers: { Authorization: 'Bearer ' + token } });
@@ -3095,12 +3138,18 @@ async function runRevoke() {
         addStep('Section 15a: Post-Revocation UserInfo', 'UserInfo returned HTTP ' + uiResp.status + ' after revocation — token may still be active. JumpCloud may use eventual consistency for revocation.', 'warning', false);
         globalResults.revocationVerified = false;
       }
+      globalResults.revokeResult.userinfo_status_after_revocation = uiResp.status;
+      globalResults.revokeResult.verified_invalid = globalResults.revocationVerified;
     } else {
       const body2 = await resp.text();
+      globalResults.revokeResult = { revocation_http_status: resp.status, accepted: false, error: body2 };
+      switchJsonTab('revoke');
       addStep('Section 15: Token Revocation', 'HTTP ' + resp.status + ': ' + body2, 'error', false);
     }
     updateJson();
   } catch(e) {
+    globalResults.revokeResult = { error: e.message };
+    switchJsonTab('revoke');
     addStep('Section 15: Revocation', 'Error: ' + e.message, 'error', false);
   } finally {
     btn.disabled = false; btn.textContent = orig;
@@ -3190,6 +3239,48 @@ function renderScopeAnalyser() {
 // ══════════════════════════════════════════════════════════════════
 // FEATURE 4: TOKEN EXPIRY TIMELINE
 // ══════════════════════════════════════════════════════════════════
+
+let tokenTimerInterval = null;
+function fmtRemaining(sec) {
+  if (sec <= 0) return 'expired';
+  if (sec < 120) return sec + 's';
+  if (sec < 7200) return Math.round(sec / 60) + 'm';
+  if (sec < 172800) return Math.round(sec / 3600) + 'h';
+  return Math.round(sec / 86400) + 'd';
+}
+function setTimerVal(id, remaining) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = fmtRemaining(remaining);
+  const item = el.closest('.ttt-item');
+  if (item) item.classList.toggle('ttt-expired', remaining <= 0);
+}
+function updateTopbarTokenTimer() {
+  const claims = globalResults.idTokenClaims;
+  const wrap = document.getElementById('topbar-token-timer');
+  if (!claims || !claims.exp) { stopTokenTimer(); return; }
+  wrap.style.display = 'flex';
+  const now = Math.floor(Date.now() / 1000);
+
+  setTimerVal('ttt-id-val', claims.exp - now);
+
+  if (globalResults.accessTokenExpiresAt) setTimerVal('ttt-at-val', globalResults.accessTokenExpiresAt - now);
+  else document.getElementById('ttt-at-val').textContent = '--';
+
+  if (globalResults.refreshTokenEstimatedExpiresAt) setTimerVal('ttt-rt-val', globalResults.refreshTokenEstimatedExpiresAt - now);
+  else document.getElementById('ttt-rt-val').textContent = '--';
+}
+function startTokenTimer() {
+  if (tokenTimerInterval) clearInterval(tokenTimerInterval);
+  updateTopbarTokenTimer();
+  tokenTimerInterval = setInterval(updateTopbarTokenTimer, 1000);
+}
+function stopTokenTimer() {
+  if (tokenTimerInterval) clearInterval(tokenTimerInterval);
+  tokenTimerInterval = null;
+  const wrap = document.getElementById('topbar-token-timer');
+  if (wrap) wrap.style.display = 'none';
+}
 
 function renderTokenTimeline() {
   const existing = document.getElementById('token-timeline');
@@ -3615,6 +3706,7 @@ async function startTest() {
     globalResults.idTokenRaw        = idToken;
     globalResults.refreshTokenRaw   = refreshToken || null;
     globalResults.tokenResponse     = tokenResp;
+    globalResults.accessTokenExpiresAt = Math.floor(Date.now() / 1000) + (tokenResp.expires_in || 0);
     if (atFormat === 'JWT') {
       try { globalResults.accessTokenDecoded = decodeJwt(accessToken).payload; } catch(e2) {}
     }
@@ -3797,6 +3889,8 @@ async function startTest() {
       if (!refreshResp.id_token || !refreshResp.access_token) throw new Error('Missing tokens in refresh response');
       const rotated = !!(refreshResp.refresh_token && refreshResp.refresh_token !== refreshToken);
       globalResults.refreshResponse = refreshResp;
+      globalResults.refreshTokenEstimatedExpiresAt = Math.floor(Date.now() / 1000) + 90 * 24 * 3600;
+      globalResults.accessTokenExpiresAt = Math.floor(Date.now() / 1000) + (refreshResp.expires_in || 0);
       resolveRefresh('Refresh successful. expires_in=' + refreshResp.expires_in + 's. ' + (rotated ? 'Token rotated (secure).' : 'Token NOT rotated — consider enabling rotation.'), rotated ? 'success' : 'warning', false);
     }
   } catch(e) { resolveRefresh(e.message, 'error'); }
@@ -3886,6 +3980,7 @@ async function startTest() {
   renderHealthPanel();
   renderScopeAnalyser();
   renderTokenTimeline();
+  startTokenTimer();
 }
 </script>
 </body>

@@ -1444,9 +1444,12 @@ body.is-resizing * { cursor: col-resize !important; }
 }
 .timeline-now::after {
   content: 'now';
-  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: 19px; left: 50%; transform: translateX(-50%);
   font-size: 7.5px; font-weight: 800; color: var(--brick); white-space: nowrap; letter-spacing: .04em;
 }
+.timeline-now.now-edge-start::after { left: 0; transform: none; }
+.timeline-now.now-edge-end::after   { left: auto; right: 0; transform: none; }
+.timeline-row { padding-bottom: 9px; }
 .timeline-legend { display: flex; gap: var(--s4); margin-top: var(--s3); flex-wrap: wrap; }
 .timeline-legend-item { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--text-3); }
 .timeline-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
@@ -1896,7 +1899,7 @@ function toggleTheme() {
 }
 (function() {
   const s = localStorage.getItem('jc_oidc_theme');
-  applyTheme(s ? s === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+  applyTheme(s === 'dark');
 })();
 
 // ── Results pane resize ───────────────────────────────────────────────
@@ -2505,7 +2508,11 @@ function updateJson() {
   if      (currentJsonTab === 'idtoken')    data = globalResults.idTokenClaims  || {};
   else if (currentJsonTab === 'userinfo')   data = globalResults.userinfo        || {};
   else if (currentJsonTab === 'access')     data = globalResults.accessTokenDecoded || { note: 'Access token is Opaque (default). Switch to JWT in JumpCloud SSO app Advanced Settings to see decoded claims.' };
-  else if (currentJsonTab === 'introspect') data = globalResults.introspectResult || { note: 'Run introspection via the Introspect Token button above after completing verification.' };
+  else if (currentJsonTab === 'introspect') {
+    if (globalResults.introspectResult) data = globalResults.introspectResult;
+    else if (globalResults.discovery && !globalResults.discovery.introspection_endpoint) data = { note: 'JumpCloud does not advertise an introspection_endpoint in this tenant\'s OIDC discovery document, so RFC 7662 introspection is not exposed to relying parties here. The Introspect Token button above is disabled for this reason. Use the ID Token / Access Token tabs or the UserInfo endpoint to inspect token state instead.' };
+    else data = { note: 'Run verification first, then use the Introspect Token button above (enabled only if JumpCloud advertises an introspection_endpoint for this tenant).' };
+  }
   else                                      data = globalResults;
   out.value = JSON.stringify(data, null, 2);
 }
@@ -3204,6 +3211,12 @@ function renderTokenTimeline() {
   const span = Math.max(latest - earliest, 1); // guard against zero span if all timestamps are equal
 
   function pct(t) { return Math.max(0, Math.min(100, ((t - earliest) / span) * 100)).toFixed(1) + '%'; }
+  function nowEdgeClass(t) {
+    const v = ((t - earliest) / span) * 100;
+    if (v <= 6) return 'now-edge-start';
+    if (v >= 94) return 'now-edge-end';
+    return '';
+  }
   function fmt(t) {
     const d = t - now;
     if (d < 0) return 'expired';
@@ -3225,21 +3238,21 @@ function renderTokenTimeline() {
         <div class="timeline-label">ID Token <span>expires in ${fmt(idExp)}</span></div>
         <div class="timeline-track">
           <div class="timeline-fill id-token" style="left:${pct(idIat)};width:${((idExp-idIat)/span*100).toFixed(1)}%"></div>
-          <div class="timeline-now" style="left:${pct(now)}"></div>
+          <div class="timeline-now ${nowEdgeClass(now)}" style="left:${pct(now)}"></div>
         </div>
       </div>
       ${atExp > now ? `<div class="timeline-row">
         <div class="timeline-label">Access Token <span>expires in ${fmt(atExp)}</span></div>
         <div class="timeline-track">
           <div class="timeline-fill access" style="left:${pct(now)};width:${((atExp-now)/span*100).toFixed(1)}%"></div>
-          <div class="timeline-now" style="left:${pct(now)}"></div>
+          <div class="timeline-now ${nowEdgeClass(now)}" style="left:${pct(now)}"></div>
         </div>
       </div>` : ''}
       ${rtExp ? `<div class="timeline-row">
         <div class="timeline-label">Refresh Token <span>~${fmt(rtExp)} (JumpCloud default ~90d)</span></div>
         <div class="timeline-track">
           <div class="timeline-fill refresh" style="left:${pct(now)};width:${Math.min(((rtExp-now)/span*100),98).toFixed(1)}%"></div>
-          <div class="timeline-now" style="left:${pct(now)}"></div>
+          <div class="timeline-now ${nowEdgeClass(now)}" style="left:${pct(now)}"></div>
         </div>
       </div>` : ''}
       <div class="timeline-legend">
@@ -3619,8 +3632,14 @@ async function startTest() {
     // Enable introspect/revoke buttons now that we have tokens
     const biBtn = document.getElementById('btn-introspect');
     const brBtn = document.getElementById('btn-revoke');
-    if (biBtn) biBtn.disabled = !discovery.introspection_endpoint;
-    if (brBtn) brBtn.disabled = !discovery.revocation_endpoint;
+    if (biBtn) {
+      biBtn.disabled = !discovery.introspection_endpoint;
+      biBtn.title = discovery.introspection_endpoint ? '' : 'JumpCloud did not advertise an introspection_endpoint in this tenant\'s discovery document — RFC 7662 introspection is not exposed for this SSO app.';
+    }
+    if (brBtn) {
+      brBtn.disabled = !discovery.revocation_endpoint;
+      brBtn.title = discovery.revocation_endpoint ? '' : 'JumpCloud did not advertise a revocation_endpoint in this tenant\'s discovery document.';
+    }
     updateJson();
   } catch(e) {
     resolveTokenExchange(e.message, 'error');
